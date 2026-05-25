@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>PsicoGuard — Brand Identity</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8FAFC; color: #1E293B; }
+
+    header {
+      padding: 32px 48px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      background: white;
+      display: flex; align-items: center; gap: 20px;
+    }
+    header img { display: block; }
+    header div h1 { font-size: 20px; font-weight: 700; color: #0F172A; }
+    header div p  { font-size: 13px; color: #64748B; margin-top: 4px; }
+
+    .page { padding: 40px 48px; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #94A3B8;
+      margin: 36px 0 14px;
+      border-bottom: 1px solid #E2E8F0; padding-bottom: 8px;
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 28px 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .card.dark { background: #0F172A; border-color: #1E293B; }
+    .card.checker {
+      background-image: linear-gradient(45deg,#E5E7EB 25%,transparent 25%),
+                        linear-gradient(-45deg,#E5E7EB 25%,transparent 25%),
+                        linear-gradient(45deg,transparent 75%,#E5E7EB 75%),
+                        linear-gradient(-45deg,transparent 75%,#E5E7EB 75%);
+      background-size: 12px 12px;
+      background-position: 0 0,0 6px,6px -6px,-6px 0;
+      background-color: white;
+    }
+    .label {
+      font-size: 10px; color: #94A3B8; letter-spacing: 1px;
+      text-transform: uppercase; text-align: center;
+    }
+    .card.dark .label { color: #475569; }
+
+    .wide-card {
+      background: white; border: 1px solid #E2E8F0;
+      border-radius: 12px; padding: 36px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wide-card.dark { background: #0F172A; border-color: #1E293B; }
+
+    .colors { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0; }
+    .swatch {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .swatch-box {
+      width: 64px; height: 64px; border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .swatch span { font-size: 11px; color: #64748B; font-family: monospace; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+    th { padding: 10px 14px; text-align: left; border: 1px solid #E2E8F0; background: #F1F5F9; }
+    td { padding: 9px 14px; border: 1px solid #E2E8F0; }
+
+    .badge {
+      display: inline-block; background: #EDE9FE; color: #5B21B6;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      padding: 2px 8px; border-radius: 99px; text-transform: uppercase;
+      margin-left: 8px; vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="c2-circulo-neural-icon-dark.svg" width="56" height="56">
+  <div>
+    <h1>PsicoGuard <span class="badge">Marca oficial</span></h1>
+    <p>Círculo Neural · Índigo + Violeta · Conformidade NR-1</p>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- HORIZONTAL -->
+  <div class="section-label">Logo horizontal — fundo claro</div>
+  <div class="wide-card">
+    <img src="c2-circulo-neural-horizontal.svg">
+  </div>
+
+  <div class="section-label">Logo horizontal — fundo escuro</div>
+  <div class="wide-card dark">
+    <img src="c2-circulo-neural-horizontal-dark.svg">
+  </div>
+
+  <!-- ÍCONE + VERTICAL -->
+  <div class="section-label">Ícone e vertical</div>
+  <div class="grid grid-4">
+    <div class="card">
+      <img src="c2-circulo-neural-icon.svg" width="64" height="64">
+      <span class="label">Ícone — fundo claro</span>
+    </div>
+    <div class="card dark">
+      <img src="c2-circulo-neural-icon-dark.svg" width="72" height="72">
+      <span class="label">Ícone — fundo escuro</span>
+    </div>
+    <div class="card">
+      <img src="c2-circulo-neural-vertical.svg" width="140">
+      <span class="label">Vertical — fundo claro</span>
+    </div>
+    <div class="card dark">
+      <img src="c2-circulo-neural-vertical-dark.svg" width="140">
+      <span class="label">Vertical — fundo escuro</span>
+    </div>
+  </div>
+
+  <!-- MONOCROMÁTICO -->
+  <div class="section-label">Monocromático (impressão, bordado, fundos coloridos)</div>
+  <div class="grid grid-4">
+    <div class="card">
+      <img src="c2-circulo-neural-icon-mono-dark.svg" width="64">
+      <span class="label">Ícone mono dark</span>
+    </div>
+    <div class="card checker">
+      <img src="c2-circulo-neural-icon-mono-white.svg" width="64">
+      <span class="label">Ícone mono white</span>
+    </div>
+    <div class="card">
+      <img src="c2-circulo-neural-horizontal-mono-dark.svg" width="220">
+      <span class="label">Horizontal mono dark</span>
+    </div>
+    <div class="card checker">
+      <img src="c2-circulo-neural-horizontal-mono-white.svg" width="220">
+      <span class="label">Horizontal mono white</span>
+    </div>
+  </div>
+
+  <!-- PALETA -->
+  <div class="section-label">Paleta de cores</div>
+  <div class="colors">
+    <div class="swatch"><div class="swatch-box" style="background:#4338CA"></div><span>#4338CA</span><span style="font-size:10px;color:#94A3B8">Índigo principal</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#7C3AED"></div><span>#7C3AED</span><span style="font-size:10px;color:#94A3B8">Violeta acento</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#6366F1"></div><span>#6366F1</span><span style="font-size:10px;color:#94A3B8">Índigo dark mode</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#A855F7"></div><span>#A855F7</span><span style="font-size:10px;color:#94A3B8">Violeta dark mode</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#C4B5FD;border-color:#ccc"></div><span>#C4B5FD</span><span style="font-size:10px;color:#94A3B8">Guard (dark bg)</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#0F172A"></div><span>#0F172A</span><span style="font-size:10px;color:#94A3B8">Bg escuro</span></div>
+  </div>
+
+  <!-- TABELA DE USO -->
+  <div class="section-label">Guia de arquivos</div>
+  <table>
+    <thead>
+      <tr><th>Arquivo</th><th>Uso ideal</th><th>Fundo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>icon.svg</td><td>Favicon, ícone interno no app</td><td>Transparente / claro</td></tr>
+      <tr><td>icon-dark.svg</td><td>App icon iOS/Android, Open Graph, Slack</td><td>Embutido (#0F172A)</td></tr>
+      <tr><td>horizontal.svg</td><td>Navbar, cabeçalho, email</td><td>Transparente / claro</td></tr>
+      <tr><td>horizontal-dark.svg</td><td>Hero landing page, slides</td><td>Embutido (#0F172A)</td></tr>
+      <tr><td>vertical.svg</td><td>Perfil redes sociais, assinatura email</td><td>Transparente / claro</td></tr>
+      <tr><td>vertical-dark.svg</td><td>App store, dark mode</td><td>Embutido (#0F172A)</td></tr>
+      <tr><td>*-mono-dark.svg</td><td>Impressão P&B, carimbo, bordado</td><td>Branco / papel</td></tr>
+      <tr><td>*-mono-white.svg</td><td>Camiseta escura, brinde, fundo colorido</td><td>Qualquer cor escura</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px;padding:14px 18px;background:#EDE9FE;border:1px solid #C4B5FD;border-radius:8px;font-size:12px;color:#5B21B6;">
+    <strong>Converter para PNG:</strong> Inkscape → <code>inkscape logo.svg --export-png=logo.png --export-width=1000</code> &nbsp;|&nbsp; Online: cloudconvert.com/svg-to-png
+  </div>
+
+</div>
+</body>
+</html>

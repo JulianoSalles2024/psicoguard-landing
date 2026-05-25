@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 112" width="160" height="112" role="img" aria-label="PsicoGuard">
+  <title>PsicoGuard</title>
+  <rect x="0" y="0" width="160" height="112" rx="14" fill="#0F172A"/>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(48,4)">
+    <path d="M32 3 L58 12 L58 35 C58 51 46 60 32 63 C18 60 6 51 6 35 L6 12 Z" fill="url(#g)"/>
+    <path d="M19 29 Q19 18 32 18 Q45 18 45 29" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="19" y1="29" x2="19" y2="45" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="45" y1="29" x2="45" y2="45" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="32" y1="18" x2="32" y2="53" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="25" y1="39" x2="39" y2="39" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="80" y="93" text-anchor="middle" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="24" letter-spacing="-0.5">
+    <tspan font-weight="700" fill="#FFFFFF">Psico</tspan><tspan font-weight="300" fill="#5EEAD4">Guard</tspan>
+  </text>
+  <text x="80" y="108" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="8" fill="#475569" letter-spacing="2">CONFORMIDADE NR-1</text>
+</svg>

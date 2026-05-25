@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PsicoGuard">
+  <title>PsicoGuard (branco — usar sobre fundo escuro)</title>
+  <path d="M32 4 C32 4 7 14 7 36 C7 51 18 59 32 61 C46 59 57 51 57 36 C57 14 32 4 32 4 Z" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="32" y1="16" x2="32" y2="56" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M13 36 L20 36 L23 27 L27 45 L31 36 L33 36 L36 29 L40 43 L44 36 L51 36"
+        fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

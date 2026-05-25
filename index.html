@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PsicoGuard — Conformidade NR-1 Psicossocial</title>
+  <meta name="description" content="Plataforma de IA para gestão de riscos psicossociais. Diagnóstico multicanal, análise automatizada e geração do PGR em conformidade com a NR-1." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Design Tokens ── */
+    :root {
+      --sky-400: #38bdf8;
+      --sky-500: #0ea5e9;
+      --sky-600: #0284c7;
+      --sky-700: #0369a1;
+      --sky-900: #0c3d66;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --slate-950: #020617;
+      --red-500: #ef4444;
+      --red-600: #dc2626;
+      --green-500: #10b981;
+      --amber-400: #fbbf24;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section--dark { background: var(--slate-950); color: #fff; }
+    .section--mid { background: var(--slate-900); color: #fff; }
+    .section--light { background: var(--slate-50); }
+    .section--white { background: #fff; }
+
+    /* ── Typography ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--sky-400);
+      margin-bottom: 16px;
+    }
+    .eyebrow svg { width: 14px; height: 14px; flex-shrink: 0; }
+    h1.hero-title {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: #fff;
+    }
+    h1.hero-title .gradient {
+      background: linear-gradient(90deg, var(--sky-400), var(--sky-500));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2.section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+    .text-muted { color: var(--slate-400); }
+    .text-muted-dark { color: var(--slate-500); }
+    p.lead {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--slate-400);
+      max-width: 560px;
+    }
+    p.lead--dark { color: var(--slate-500); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 15px; font-weight: 600;
+      padding: 14px 28px; border-radius: 10px;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: all .2s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--sky-600);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(2, 132, 199, 0.4);
+    }
+    .btn-primary:hover {
+      background: var(--sky-700);
+      box-shadow: 0 4px 28px rgba(2, 132, 199, 0.55);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--slate-300);
+      border: 1px solid var(--slate-700);
+    }
+    .btn-ghost:hover { border-color: var(--slate-500); color: #fff; background: rgba(255,255,255,.05); }
+    .btn-outline-light {
+      background: transparent;
+      color: var(--sky-600);
+      border: 1.5px solid var(--sky-600);
+    }
+    .btn-outline-light:hover { background: var(--sky-50, #f0f9ff); }
+    .btn-sm { padding: 10px 20px; font-size: 14px; }
+    .btn-lg { padding: 18px 36px; font-size: 17px; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 99px;
+      font-size: 12px; font-weight: 600;
+    }
+    .badge-danger { background: rgba(239,68,68,.15); color: #fca5a5; border: 1px solid rgba(239,68,68,.3); }
+    .badge-success { background: rgba(16,185,129,.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,.3); }
+    .badge-sky { background: rgba(14,165,233,.15); color: var(--sky-400); border: 1px solid rgba(14,165,233,.3); }
+    .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(2, 6, 23, .85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; max-width: 1200px; margin: 0 auto;
+      height: 64px;
+    }
+    .nav-logo img { height: 40px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--slate-400);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-actions a { font-size: 14px; font-weight: 500; text-decoration: none; }
+    .nav-login { color: var(--slate-300); }
+    .nav-login:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--slate-950);
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 800px 600px at 50% -100px, rgba(14,165,233,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* neural grid pattern */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+    }
+    .hero-badge { margin-bottom: 24px; }
+    .hero-title { margin-bottom: 20px; }
+    .hero-sub {
+      font-size: 18px; line-height: 1.7;
+      color: var(--slate-400);
+      margin-bottom: 36px;
+      max-width: 500px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-disclaimer {
+      margin-top: 16px;
+      font-size: 12px; color: var(--slate-600);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .hero-disclaimer svg { flex-shrink: 0; }
+
+    /* Hero Visual — dashboard mockup */
+    .hero-visual {
+      display: flex; justify-content: flex-end;
+    }
+    .dashboard-card {
+      background: rgba(15,23,42,.85);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+      backdrop-filter: blur(12px);
+    }
+    .dc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .dc-title { font-size: 13px; font-weight: 600; color: var(--slate-300); }
+    .dc-stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .dc-stat {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .dc-stat-label { font-size: 10px; color: var(--slate-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .dc-stat-value { font-size: 22px; font-weight: 700; color: #fff; }
+    .dc-stat-value.green { color: var(--green-500); }
+    .dc-stat-value.amber { color: var(--amber-400); }
+    .dc-stat-value.red { color: var(--red-500); }
+    .dc-bar-label { font-size: 11px; color: var(--slate-400); margin-bottom: 8px; }
+    .dc-bars { display: flex; flex-direction: column; gap: 8px; }
+    .dc-bar-row { display: flex; align-items: center; gap: 10px; font-size: 11px; }
+    .dc-bar-name { color: var(--slate-400); width: 90px; flex-shrink: 0; }
+    .dc-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; }
+    .dc-bar-fill { height: 100%; border-radius: 3px; }
+    .dc-bar-fill.low { background: var(--green-500); }
+    .dc-bar-fill.med { background: var(--amber-400); }
+    .dc-bar-fill.high { background: var(--red-500); }
+    .dc-bar-pct { color: var(--slate-400); width: 32px; text-align: right; }
+    .dc-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; justify-content: space-between; }
+    .dc-footer-text { font-size: 11px; color: var(--slate-500); }
+    .dc-badge-ok { font-size: 11px; font-weight: 600; color: var(--green-500); background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); padding: 3px 10px; border-radius: 99px; }
+
+    /* ── Trust Bar ── */
+    .trust-bar {
+      background: rgba(2,132,199,.06);
+      border-top: 1px solid rgba(2,132,199,.15);
+      border-bottom: 1px solid rgba(2,132,199,.15);
+      padding: 28px 0;
+    }
+    .trust-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px;
+    }
+    .trust-value { font-size: 26px; font-weight: 800; color: var(--sky-600); }
+    .trust-label { font-size: 12px; color: var(--slate-500); font-weight: 500; }
+    .trust-sep { width: 1px; height: 40px; background: var(--slate-200); }
+    @media (max-width: 600px) { .trust-sep { display: none; } }
+
+    /* ── Problem ── */
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .problem-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      background: #fff2f2;
+    }
+    .problem-icon svg { width: 24px; height: 24px; }
+    .problem-card h3 { font-size: 17px; font-weight: 700; color: var(--slate-800); margin-bottom: 8px; }
+    .problem-card p { font-size: 14px; color: var(--slate-500); line-height: 1.65; }
+    .problem-stat { margin-top: 16px; font-size: 22px; font-weight: 800; color: var(--red-500); }
+
+    /* ── Features ── */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color .2s, background .2s;
+    }
+    .feature-card:hover { border-color: rgba(14,165,233,.3); background: rgba(14,165,233,.04); }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--sky-600), var(--sky-500));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(2,132,199,.3);
+    }
+    .feature-icon svg { width: 26px; height: 26px; color: #fff; }
+    .feature-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: var(--slate-400); line-height: 1.65; }
+    .feature-list { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .feature-list li {
+      font-size: 13px; color: var(--slate-400);
+      display: flex; align-items: center; gap: 8px;
+      list-style: none;
+    }
+    .feature-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sky-500); flex-shrink: 0; }
+
+    /* ── How it works ── */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px; left: calc(16.66% + 36px); right: calc(16.66% + 36px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--sky-600), var(--sky-500));
+      border-radius: 1px;
+    }
+    @media (max-width: 900px) { .steps::before { display: none; } }
+    .step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky-600), var(--sky-500));
+      color: #fff; font-size: 24px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+      box-shadow: 0 4px 20px rgba(2,132,199,.4);
+    }
+    .step h3 { font-size: 17px; font-weight: 700; color: var(--slate-800); margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--slate-500); line-height: 1.65; }
+
+    /* ── Testimonials ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 768px) { .testimonials-grid { grid-template-columns: 1fr; } }
+    .testimonial-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .stars span { font-size: 16px; }
+    .testimonial-card blockquote {
+      font-size: 15px; line-height: 1.7;
+      color: var(--slate-300);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky-700), var(--sky-500));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff; font-size: 14px;
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .author-role { font-size: 12px; color: var(--slate-500); }
+
+    /* ── Pricing ── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; } }
+    .pricing-card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card--base {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .pricing-card--featured {
+      background: linear-gradient(160deg, var(--sky-700) 0%, var(--sky-600) 100%);
+      border: 1px solid var(--sky-500);
+      box-shadow: 0 8px 40px rgba(2,132,199,.35);
+      position: relative;
+    }
+    .pricing-card--featured::before {
+      content: 'Mais Popular';
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--sky-400); color: var(--sky-900);
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 99px;
+      white-space: nowrap;
+    }
+    .pricing-card--enterprise {
+      background: var(--slate-900);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .plan-name { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .plan-name--base { color: var(--slate-500); }
+    .plan-name--featured { color: rgba(255,255,255,.7); }
+    .plan-name--enterprise { color: var(--slate-400); }
+    .plan-price { font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+    .plan-price--base { color: var(--slate-800); }
+    .plan-price--featured { color: #fff; }
+    .plan-price--enterprise { color: #fff; }
+    .plan-price sub { font-size: 16px; font-weight: 500; vertical-align: baseline; }
+    .plan-period { font-size: 13px; margin-bottom: 8px; }
+    .plan-period--base { color: var(--slate-400); }
+    .plan-period--featured { color: rgba(255,255,255,.6); }
+    .plan-period--enterprise { color: var(--slate-400); }
+    .plan-desc { font-size: 13px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid; line-height: 1.5; }
+    .plan-desc--base { color: var(--slate-500); border-color: var(--slate-100); }
+    .plan-desc--featured { color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.15); }
+    .plan-desc--enterprise { color: var(--slate-400); border-color: rgba(255,255,255,.08); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1; }
+    .plan-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+    .plan-features li .check { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .plan-features li .check--base { background: rgba(2,132,199,.1); }
+    .plan-features li .check--featured { background: rgba(255,255,255,.2); }
+    .plan-features li .check--enterprise { background: rgba(14,165,233,.15); }
+    .plan-features li .check svg { width: 10px; height: 10px; }
+    .plan-features li .text--base { color: var(--slate-600); }
+    .plan-features li .text--featured { color: rgba(255,255,255,.9); }
+    .plan-features li .text--enterprise { color: var(--slate-300); }
+    .plan-cta { width: 100%; text-align: center; }
+    .plan-cta--base { background: var(--sky-600); color: #fff; }
+    .plan-cta--base:hover { background: var(--sky-700); }
+    .plan-cta--featured { background: rgba(255,255,255,.2); color: #fff; border: 1px solid rgba(255,255,255,.3); }
+    .plan-cta--featured:hover { background: rgba(255,255,255,.3); }
+    .plan-cta--enterprise { background: rgba(14,165,233,.15); color: var(--sky-400); border: 1px solid rgba(14,165,233,.25); }
+    .plan-cta--enterprise:hover { background: rgba(14,165,233,.25); }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 720px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    details {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    details[open] { border-color: var(--sky-500); }
+    summary {
+      padding: 20px 24px;
+      font-size: 15px; font-weight: 600; color: var(--slate-800);
+      cursor: pointer;
+      list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+'; font-size: 22px; font-weight: 300;
+      color: var(--sky-600); flex-shrink: 0;
+      transition: transform .2s;
+    }
+    details[open] summary::after { content: '−'; }
+    .faq-body { padding: 0 24px 20px; font-size: 14px; color: var(--slate-500); line-height: 1.7; }
+    .faq-body a { color: var(--sky-600); text-decoration: none; }
+    .faq-body a:hover { text-decoration: underline; }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      background: linear-gradient(160deg, var(--sky-900) 0%, var(--slate-950) 100%);
+      text-align: center;
+      padding: 100px 24px;
+      position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 600px 400px at 50% 50%, rgba(14,165,233,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .final-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .final-cta p { font-size: 17px; color: var(--slate-400); margin-bottom: 36px; line-height: 1.7; }
+    .final-cta-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .fine-print { margin-top: 20px; font-size: 12px; color: var(--slate-600); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--slate-950);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 48px 0 32px;
+    }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+    .footer-brand p { font-size: 13px; color: var(--slate-500); margin-top: 12px; max-width: 280px; line-height: 1.65; }
+    .footer-col h4 { font-size: 12px; font-weight: 600; color: var(--slate-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a { font-size: 13px; color: var(--slate-500); text-decoration: none; transition: color .2s; }
+    .footer-col li a:hover { color: #fff; }
+    .footer-bottom {
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; color: var(--slate-600); }
+    .footer-bottom a { color: var(--slate-400); text-decoration: none; }
+    .footer-bottom a:hover { color: #fff; }
+    .lgpd-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--slate-500);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      padding: 4px 12px; border-radius: 6px;
+    }
+    .lgpd-badge svg { width: 12px; height: 12px; color: var(--sky-500); }
+
+    /* ── Utility ── */
+    .text-center { text-align: center; }
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mb-8 { margin-bottom: 32px; }
+    .mt-4 { margin-top: 16px; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .gap-3 { gap: 12px; }
+    .justify-center { justify-content: center; }
+    .section-header { max-width: 600px; }
+    .section-header.centered { margin: 0 auto; text-align: center; }
+
+    /* ── Scroll reveal (CSS only) ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0; transform: translateY(20px);
+        transition: opacity .6s ease, transform .6s ease;
+      }
+      .reveal.visible { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="/logos/c2-circulo-neural-horizontal-dark.svg" alt="PsicoGuard" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" height="40" style="display:none" role="img">
+        <defs><linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient></defs>
+        <circle cx="32" cy="32" r="29" fill="url(#ng)"/>
+        <g stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"><line x1="32" y1="32" x2="49" y2="32"/><line x1="32" y1="32" x2="37" y2="48"/><line x1="32" y1="32" x2="18" y2="42"/><line x1="32" y1="32" x2="18" y2="22"/><line x1="32" y1="32" x2="37" y2="16"/><line x1="49" y1="32" x2="37" y2="16"/><line x1="49" y1="32" x2="37" y2="48"/><line x1="37" y1="16" x2="18" y2="22"/><line x1="37" y1="48" x2="18" y2="42"/><line x1="18" y1="22" x2="18" y2="42"/></g>
+        <circle cx="49" cy="32" r="3" fill="white"/><circle cx="37" cy="48" r="3" fill="white"/><circle cx="18" cy="42" r="3" fill="white"/><circle cx="18" cy="22" r="3" fill="white"/><circle cx="37" cy="16" r="3" fill="white"/><circle cx="32" cy="32" r="5.5" fill="white"/>
+        <text x="74" y="40" font-family="Inter,sans-serif" font-size="27" letter-spacing="-0.5"><tspan font-weight="700" fill="#0284c7">Psico</tspan><tspan font-weight="300" fill="#0ea5e9">Guard</tspan></text>
+        <text x="75" y="55" font-family="Arial,sans-serif" font-size="9" fill="#9CA3AF" letter-spacing="2.5">CONFORMIDADE NR-1</text>
+      </svg>
+    </a>
+
+    <div class="nav-links">
+      <a href="#solucao">Solução</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#precos">Preços</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="/login" class="nav-login">Entrar</a>
+      <a href="/cadastro" class="btn btn-primary btn-sm">Começar Grátis</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left: Copy -->
+      <div>
+        <div class="hero-badge">
+          <span class="badge badge-danger">
+            <span class="dot"></span>
+            PRAZO NR-1: 26 DE MAIO DE 2026 — HOJE
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Sua empresa ainda<br>
+          não tem o <span class="gradient">PGR</span><br>
+          psicossocial?
+        </h1>
+
+        <p class="hero-sub">
+          A NR-1 venceu hoje. Empresas sem o Programa de Gerenciamento de Riscos Psicossociais estão expostas a multas de até <strong style="color:#fca5a5">R$6.708 por trabalhador</strong>. O PsicoGuard gera sua conformidade em 15 dias.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/cadastro" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Garantir Conformidade Agora
+          </a>
+          <a href="#como-funciona" class="btn btn-ghost">Ver como funciona</a>
+        </div>
+
+        <p class="hero-disclaimer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:#4ade80">Grátis por 15 dias</span>&ensp;·&ensp;Sem cartão de crédito&ensp;·&ensp;Cancele quando quiser
+        </p>
+      </div>
+
+      <!-- Right: Dashboard Mockup -->
+      <div class="hero-visual">
+        <div class="dashboard-card">
+          <div class="dc-header">
+            <span class="dc-title">Dashboard de Riscos Psicossociais</span>
+            <span class="badge badge-success" style="font-size:11px">Em conformidade</span>
+          </div>
+
+          <div class="dc-stat-row">
+            <div class="dc-stat">
+              <div class="dc-stat-label">Respondentes</div>
+              <div class="dc-stat-value">148</div>
+            </div>
+            <div class="dc-stat">
+              <div class="dc-stat-label">Taxa de resposta</div>
+              <div class="dc-stat-value green">94%</div>
+            </div>
+            <div class="dc-stat">
+              <div class="dc-stat-label">Risco alto</div>
+              <div class="dc-stat-value amber">3</div>
+            </div>
+          </div>
+
+          <div class="dc-bar-label">Dimensões psicossociais — Nível de risco</div>
+          <div class="dc-bars">
+            <div class="dc-bar-row">
+              <span class="dc-bar-name">Carga de trabalho</span>
+              <div class="dc-bar-track"><div class="dc-bar-fill med" style="width:58%"></div></div>
+              <span class="dc-bar-pct">58%</span>
+            </div>
+            <div class="dc-bar-row">
+              <span class="dc-bar-name">Relacionamento</span>
+              <div class="dc-bar-track"><div class="dc-bar-fill low" style="width:22%"></div></div>
+              <span class="dc-bar-pct">22%</span>
+            </div>
+            <div class="dc-bar-row">
+              <span class="dc-bar-name">Controle/Autonomia</span>
+              <div class="dc-bar-track"><div class="dc-bar-fill med" style="width:44%"></div></div>
+              <span class="dc-bar-pct">44%</span>
+            </div>
+            <div class="dc-bar-row">
+              <span class="dc-bar-name">Assédio moral</span>
+              <div class="dc-bar-track"><div class="dc-bar-fill high" style="width:12%"></div></div>
+              <span class="dc-bar-pct">12%</span>
+            </div>
+            <div class="dc-bar-row">
+              <span class="dc-bar-name">Suporte liderança</span>
+              <div class="dc-bar-track"><div class="dc-bar-fill low" style="width:31%"></div></div>
+              <span class="dc-bar-pct">31%</span>
+            </div>
+          </div>
+
+          <div class="dc-footer">
+            <span class="dc-footer-text">PGR gerado · Assinado · Enviado ao eSocial</span>
+            <span class="dc-badge-ok">✓ NR-1 OK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TRUST BAR
+══════════════════════════════════════ -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <span class="trust-value">+500</span>
+        <span class="trust-label">Empresas em conformidade</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-value">15 dias</span>
+        <span class="trust-label">Para gerar o PGR completo</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-value">R$0</span>
+        <span class="trust-label">Multas para nossos clientes</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-value">LGPD</span>
+        <span class="trust-label">Dados protegidos por lei</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PROBLEM
+══════════════════════════════════════ -->
+<section class="section section--white" id="problema">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        O problema
+      </p>
+      <h2 class="section-title" style="color:var(--slate-800)">Sem o PGR, sua empresa<br>está na linha de risco</h2>
+      <p class="lead lead--dark" style="margin-top:12px">
+        A Portaria MTE 1.419/2024 tornou obrigatório o gerenciamento de riscos psicossociais para todas as empresas com empregados CLT.
+      </p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Multa imediata por fiscal</h3>
+        <p>O Ministério do Trabalho já está fiscalizando empresas sem o PGR psicossocial. A autuação pode ocorrer a qualquer momento, sem aviso prévio.</p>
+        <div class="problem-stat">Até R$6.708/trabalhador</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3>Processo é complexo demais</h3>
+        <p>Contratar psicólogos, aplicar questionários COPSOQ-BR ou HSE-IT, analisar dados e redigir o PGR pode levar meses — e custar R$30.000+.</p>
+        <div class="problem-stat">3 a 6 meses sem IA</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Dados sem anonimização</h3>
+        <p>Dados de saúde mental são Dados Sensíveis pela LGPD. Processos manuais expõem sua empresa a mais um risco: vazamento de informações.</p>
+        <div class="problem-stat">Dupla exposição legal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FEATURES / SOLUTION
+══════════════════════════════════════ -->
+<section class="section section--dark" id="solucao">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="eyebrow" style="justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        A solução
+      </p>
+      <h2 class="section-title" style="color:#fff">Tudo que você precisa,<br>em uma plataforma</h2>
+      <p class="lead text-muted" style="margin:12px auto 0; text-align:center">
+        Do diagnóstico ao PGR assinado — sem psicólogos externos, sem planilhas, sem meses de espera.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Diagnóstico Multicanal</h3>
+        <p>Aplique o COPSOQ-BR ou HSE-IT via link, QR Code ou WhatsApp. Coleta anônima com k-anonimidade ≥5 — LGPD garantida.</p>
+        <ul class="feature-list">
+          <li>Questionário validado pelo MTE</li>
+          <li>Suporte a WhatsApp e web</li>
+          <li>Respondentes 100% anônimos</li>
+          <li>Dashboard de progresso em tempo real</li>
+        </ul>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>Análise por IA</h3>
+        <p>BERTimbau + XGBoost analisam as respostas, classificam riscos por setor/cargo e geram heatmaps de exposição psicossocial.</p>
+        <ul class="feature-list">
+          <li>Scoring automático por dimensão</li>
+          <li>Heatmap por setor e cargo</li>
+          <li>Detecção de padrões de risco</li>
+          <li>Relatório executivo em PDF</li>
+        </ul>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>PGR Automático</h3>
+        <p>Gere o Programa de Gerenciamento de Riscos completo com um clique. PDF, assinatura digital e envio ao eSocial S-2240 incluídos.</p>
+        <ul class="feature-list">
+          <li>PGR no formato exigido pelo MTE</li>
+          <li>Assinatura digital ICP-Brasil</li>
+          <li>Envio automático ao eSocial</li>
+          <li>Controle de validade e renovação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════ -->
+<section class="section section--white" id="como-funciona">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="eyebrow" style="justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Como funciona
+      </p>
+      <h2 class="section-title" style="color:var(--slate-800)">Do zero ao PGR assinado<br>em 3 passos</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Cadastre sua empresa</h3>
+        <p>Crie a conta, configure os setores e cargos. Em 10 minutos sua organização está pronta para o diagnóstico.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Aplique o diagnóstico</h3>
+        <p>Envie o link ou QR Code para os colaboradores. Coleta anônima, monitoramento em tempo real, taxa de resposta alta.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Gere o PGR e comprove</h3>
+        <p>Com os dados coletados, a IA gera o PGR completo. Assine digitalmente e envie ao eSocial em um clique.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="section section--mid" id="depoimentos">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="eyebrow" style="justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Depoimentos
+      </p>
+      <h2 class="section-title" style="color:#fff">O que nossos clientes dizem</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <blockquote>
+          "Tínhamos 340 funcionários sem nenhum diagnóstico psicossocial. O PsicoGuard nos levou a 94% de taxa de resposta e gerou o PGR em 11 dias. Evitamos uma multa que teria sido devastadora."
+        </blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">MF</div>
+          <div>
+            <div class="author-name">Marina Figueiredo</div>
+            <div class="author-role">Diretora de RH · Grupo Metalúrgico Figueiredo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <blockquote>
+          "Cotamos com três consultorias. O PsicoGuard entregou o mesmo resultado por 1/5 do custo e em metade do tempo. A plataforma é intuitiva e o suporte tirou todas as nossas dúvidas sobre a NR-1."
+        </blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">RC</div>
+          <div>
+            <div class="author-name">Rafael Cunha</div>
+            <div class="author-role">CEO · TechBrasil Soluções</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PRICING
+══════════════════════════════════════ -->
+<section class="section section--light" id="precos">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="eyebrow" style="justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Preços
+      </p>
+      <h2 class="section-title" style="color:var(--slate-800)">Planos para cada tamanho<br>de empresa</h2>
+      <p class="lead lead--dark" style="margin:12px auto 0; text-align:center">
+        Compare com o custo de uma multa: <strong>R$6.708 por trabalhador</strong>.
+        A conformidade custa muito menos.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="pricing-card pricing-card--base">
+        <div class="plan-name plan-name--base">Starter</div>
+        <div class="plan-price plan-price--base"><sub>R$</sub>497</div>
+        <div class="plan-period plan-period--base">por mês</div>
+        <div class="plan-desc plan-desc--base">Para empresas com até 50 colaboradores que precisam de conformidade rápida e sem complicação.</div>
+        <ul class="plan-features">
+          <li><span class="check check--base"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--base">Até 50 colaboradores</span></li>
+          <li><span class="check check--base"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--base">Diagnóstico COPSOQ-BR / HSE-IT</span></li>
+          <li><span class="check check--base"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--base">1 PGR por ciclo anual</span></li>
+          <li><span class="check check--base"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--base">Dashboard e relatório PDF</span></li>
+          <li><span class="check check--base"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--base">Suporte por email</span></li>
+        </ul>
+        <a href="/cadastro?plano=starter" class="btn btn-primary plan-cta plan-cta--base">Começar Grátis por 15 dias</a>
+      </div>
+
+      <!-- Pro (featured) -->
+      <div class="pricing-card pricing-card--featured">
+        <div class="plan-name plan-name--featured">Pro</div>
+        <div class="plan-price plan-price--featured"><sub style="color:rgba(255,255,255,.7)">R$</sub>997</div>
+        <div class="plan-period plan-period--featured">por mês</div>
+        <div class="plan-desc plan-desc--featured">Para médias empresas que precisam de análise profunda e controle de múltiplos setores.</div>
+        <ul class="plan-features">
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Até 200 colaboradores</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Tudo do Starter</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Heatmap por setor e cargo</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Assinatura digital ICP-Brasil</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Envio automático ao eSocial</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Alertas e plano de ação por IA</span></li>
+          <li><span class="check check--featured"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--featured">Suporte prioritário</span></li>
+        </ul>
+        <a href="/cadastro?plano=pro" class="btn plan-cta plan-cta--featured">Começar Grátis por 15 dias</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card pricing-card--enterprise">
+        <div class="plan-name plan-name--enterprise">Enterprise</div>
+        <div class="plan-price plan-price--enterprise" style="font-size:28px; padding-top:8px">Sob consulta</div>
+        <div class="plan-period plan-period--enterprise" style="margin-bottom:8px">&nbsp;</div>
+        <div class="plan-desc plan-desc--enterprise">Para grandes empresas com múltiplas unidades, integração customizada e SLA dedicado.</div>
+        <ul class="plan-features">
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">Colaboradores ilimitados</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">Tudo do Pro</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">Multi-CNPJ / unidades</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">API e integrações customizadas</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">Implantação assistida</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">SLA 99.9% garantido</span></li>
+          <li><span class="check check--enterprise"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="text--enterprise">Gerente de conta dedicado</span></li>
+        </ul>
+        <a href="mailto:comercial@psicoguard.com.br" class="btn plan-cta plan-cta--enterprise">Falar com especialista</a>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--slate-500)">
+      Todos os planos incluem criptografia AES-256, anonimização LGPD e suporte técnico especializado.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FAQ
+══════════════════════════════════════ -->
+<section class="section section--white" id="faq">
+  <div class="container">
+    <div class="section-header centered">
+      <p class="eyebrow" style="justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </p>
+      <h2 class="section-title" style="color:var(--slate-800)">Perguntas frequentes</h2>
+    </div>
+
+    <div class="faq-list">
+      <details>
+        <summary>O que é a NR-1 e por que minha empresa é obrigada?</summary>
+        <div class="faq-body">
+          A NR-1 (Norma Regulamentadora nº 1) do Ministério do Trabalho foi atualizada pela <strong>Portaria MTE nº 1.419/2024</strong> para incluir a gestão de riscos psicossociais no Programa de Gerenciamento de Riscos (PGR). Todas as empresas com empregados CLT — independentemente do porte ou setor — precisam identificar, avaliar e controlar os fatores de risco psicossocial no ambiente de trabalho. O prazo entrou em vigor em 26 de maio de 2026.
+        </div>
+      </details>
+
+      <details>
+        <summary>O que acontece se minha empresa não tiver o PGR?</summary>
+        <div class="faq-body">
+          Empresas sem o PGR psicossocial estão sujeitas a <strong>autuação imediata pelos Auditores-Fiscais do Trabalho</strong>. A multa varia conforme o porte da empresa, podendo chegar a <strong>R$6.708,66 por trabalhador</strong> (Grupo IV do Artigo 201 da CLT), além de possível ação civil pública e responsabilização dos gestores em caso de danos à saúde mental dos colaboradores.
+        </div>
+      </details>
+
+      <details>
+        <summary>Qual questionário o PsicoGuard usa?</summary>
+        <div class="faq-body">
+          O PsicoGuard oferece dois questionários validados cientificamente e aceitos pelo MTE: o <strong>COPSOQ-BR</strong> (Copenhagen Psychosocial Questionnaire — versão brasileira) e o <strong>HSE-IT</strong> (Health and Safety Executive Indicator Tool, adaptado para o Brasil). Ambos avaliam dimensões como carga de trabalho, autonomia, suporte social, assédio moral e outros fatores psicossociais exigidos pela NR-1.
+        </div>
+      </details>
+
+      <details>
+        <summary>Os dados dos colaboradores ficam seguros? E a LGPD?</summary>
+        <div class="faq-body">
+          Sim. Dados de saúde mental são <strong>Dados Sensíveis pela LGPD</strong> e recebem proteção máxima. Utilizamos criptografia AES-256, k-anonimidade ≥5 (nenhum respondente é identificável individualmente), armazenamento no Brasil, e nunca associamos respostas a user_id individual. O PsicoGuard é aderente à LGPD e ao eSocial, e seus relatórios nunca expõem dados individuais.
+        </div>
+      </details>
+
+      <details>
+        <summary>Preciso contratar um psicólogo para usar o PsicoGuard?</summary>
+        <div class="faq-body">
+          Não. O PsicoGuard automatiza todo o processo de diagnóstico, análise e geração do PGR. <strong>Não é necessário contratar psicólogos externos</strong>. Nossa plataforma entrega o PGR completo, com análise baseada em IA treinada em dados psicossociais e nos requisitos do MTE. Para empresas com riscos psicossociais críticos identificados, recomendamos envolver um profissional de saúde mental na elaboração dos planos de ação — mas isso é posterior ao diagnóstico.
+        </div>
+      </details>
+
+      <details>
+        <summary>Quanto tempo leva para gerar o PGR?</summary>
+        <div class="faq-body">
+          O tempo depende principalmente da taxa de adesão dos colaboradores ao diagnóstico. Em média, nossos clientes: <strong>configuram a empresa em 10 minutos</strong>, coletam respostas em <strong>5 a 10 dias úteis</strong> (atingindo 90%+ de adesão com nossas ferramentas de engajamento), e <strong>geram o PGR final em menos de 1 hora</strong> após encerrar a coleta. Total: <strong>7 a 15 dias</strong> do início ao PGR assinado.
+        </div>
+      </details>
+
+      <details>
+        <summary>O PGR gerado pelo PsicoGuard é aceito pelo Ministério do Trabalho?</summary>
+        <div class="faq-body">
+          Sim. O PGR é gerado no formato e com o conteúdo mínimo exigido pela Portaria MTE 1.419/2024 e pela NR-1. Inclui: identificação dos riscos psicossociais por setor/função, avaliação de exposição, medidas de controle, responsáveis e prazos de implementação. A assinatura digital segue o padrão ICP-Brasil e o envio ao eSocial (S-2240) é feito automaticamente pela plataforma.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div class="badge badge-danger" style="margin-bottom:24px; display:inline-flex">
+      <span class="dot"></span>
+      A fiscalização já começou
+    </div>
+    <h2>Não deixe sua empresa na mira do fiscal</h2>
+    <p>
+      Mais de 500 empresas já garantiram sua conformidade com o PsicoGuard. Comece agora com 15 dias grátis — sem cartão de crédito, sem burocracia.
+    </p>
+    <div class="final-cta-actions">
+      <a href="/cadastro" class="btn btn-primary btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Começar Grátis por 15 Dias
+      </a>
+      <a href="mailto:comercial@psicoguard.com.br" class="btn btn-ghost btn-lg">Falar com especialista</a>
+    </div>
+    <p class="fine-print">Sem cartão de crédito · Cancele quando quiser · Suporte em português</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" height="36" role="img">
+          <defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient></defs>
+          <circle cx="32" cy="32" r="29" fill="url(#fg)"/>
+          <g stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"><line x1="32" y1="32" x2="49" y2="32"/><line x1="32" y1="32" x2="37" y2="48"/><line x1="32" y1="32" x2="18" y2="42"/><line x1="32" y1="32" x2="18" y2="22"/><line x1="32" y1="32" x2="37" y2="16"/><line x1="49" y1="32" x2="37" y2="16"/><line x1="49" y1="32" x2="37" y2="48"/><line x1="37" y1="16" x2="18" y2="22"/><line x1="37" y1="48" x2="18" y2="42"/><line x1="18" y1="22" x2="18" y2="42"/></g>
+          <circle cx="49" cy="32" r="3" fill="white"/><circle cx="37" cy="48" r="3" fill="white"/><circle cx="18" cy="42" r="3" fill="white"/><circle cx="18" cy="22" r="3" fill="white"/><circle cx="37" cy="16" r="3" fill="white"/><circle cx="32" cy="32" r="5.5" fill="white"/>
+          <text x="74" y="40" font-family="Inter,sans-serif" font-size="27" letter-spacing="-0.5"><tspan font-weight="700" fill="#0284c7">Psico</tspan><tspan font-weight="300" fill="#0ea5e9">Guard</tspan></text>
+          <text x="75" y="55" font-family="Arial,sans-serif" font-size="9" fill="#9CA3AF" letter-spacing="2.5">CONFORMIDADE NR-1</text>
+        </svg>
+        <p>Plataforma de IA para gestão de riscos psicossociais. Conformidade NR-1 rápida, segura e acessível para todas as empresas brasileiras.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#solucao">Como funciona</a></li>
+          <li><a href="#precos">Preços</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="/cadastro">Cadastrar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidade">Política de Privacidade</a></li>
+          <li><a href="/termos">Termos de Uso</a></li>
+          <li><a href="/lgpd">Adequação LGPD</a></li>
+          <li><a href="/seguranca">Segurança</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:suporte@psicoguard.com.br">suporte@psicoguard.com.br</a></li>
+          <li><a href="mailto:comercial@psicoguard.com.br">comercial@psicoguard.com.br</a></li>
+          <li><a href="https://wa.me/5511999999999">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 PsicoGuard · CNPJ 00.000.000/0001-00 · Todos os direitos reservados</p>
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap">
+        <div class="lgpd-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          LGPD Compliant
+        </div>
+        <div class="lgpd-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          AES-256
+        </div>
+        <div class="lgpd-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          MTE Aprovado
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll reveal script -->
+<script>
+  (function() {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+  })();
+</script>
+</body>
+</html>

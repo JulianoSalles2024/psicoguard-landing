@@ -1,0 +1,9 @@
+{
+  "name": "psicoguard-landing",
+  "version": "1.0.0",
+  "description": "Landing page PsicoGuard — Conformidade NR-1",
+  "scripts": {
+    "dev": "npx serve . --listen 3030 --no-clipboard",
+    "start": "npx serve . --listen 3030"
+  }
+}
