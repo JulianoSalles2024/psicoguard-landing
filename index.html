@@ -439,6 +439,11 @@
     .fbadge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--txt-3); background: var(--sur); border: 1px solid var(--bdr); padding: 4px 12px; border-radius: 6px; }
     .fbadge svg { width: 12px; height: 12px; color: var(--sky); }
     .fbadges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .foot-contact-link {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--txt-3); text-decoration: none; transition: color .2s;
+    }
+    .foot-contact-link:hover { color: var(--txt); }
 
     /* ── REVEAL ── */
     @media (prefers-reduced-motion: no-preference) {
@@ -453,6 +458,67 @@
     .sec-hdr { max-width: 620px; }
     .sec-hdr.c { margin: 0 auto; text-align: center; }
     .sec-hdr.c .sub { margin: 14px auto 0; }
+
+    /* ── MODAIS LEGAIS ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(5,8,15,.82); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 20px;
+      width: 100%; max-width: 680px; max-height: 88vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 40px 100px rgba(0,0,0,.5);
+      overflow: hidden;
+    }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px 20px; border-bottom: 1px solid #E2E8F0;
+      flex-shrink: 0;
+    }
+    .modal-head h3 { font-family: var(--fd); font-size: 20px; font-weight: 700; color: #0F172A; }
+    .modal-head p { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+    .modal-close {
+      width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9;
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .2s;
+    }
+    .modal-close:hover { background: #E2E8F0; }
+    .modal-close svg { width: 16px; height: 16px; color: #64748B; }
+    .modal-body {
+      overflow-y: auto; padding: 28px 28px 32px;
+      font-size: 14px; color: #475569; line-height: 1.75;
+      scroll-behavior: smooth;
+    }
+    .modal-body h4 {
+      font-family: var(--fd); font-size: 15px; font-weight: 700;
+      color: #0F172A; margin: 24px 0 8px;
+    }
+    .modal-body h4:first-child { margin-top: 0; }
+    .modal-body p { margin-bottom: 10px; }
+    .modal-body ul { padding-left: 20px; margin-bottom: 10px; }
+    .modal-body ul li { margin-bottom: 4px; }
+    .modal-body strong { color: #334155; }
+    .modal-body a { color: var(--sky-dk); text-decoration: none; }
+    .modal-body a:hover { text-decoration: underline; }
+    .modal-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--sky-dk); background: rgba(2,132,199,.08);
+      border: 1px solid rgba(2,132,199,.2); padding: 3px 10px; border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .modal-divider { border: none; border-top: 1px solid #E2E8F0; margin: 20px 0; }
+    .modal-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 13px; }
+    .modal-table th { background: #F8FAFC; padding: 8px 12px; text-align: left; font-weight: 600; color: #334155; border: 1px solid #E2E8F0; }
+    .modal-table td { padding: 8px 12px; border: 1px solid #E2E8F0; color: #475569; vertical-align: top; }
+    @media (max-width: 480px) {
+      .modal-head { padding: 20px 20px 16px; }
+      .modal-body { padding: 20px 20px 28px; }
+      .modal-table { display: none; }
+    }
 
     /* ── MOBILE GLOBAL ── */
     @media (max-width: 768px) {
@@ -855,7 +921,7 @@
           <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">SLA 99.9% garantido</span></li>
           <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Gerente de conta dedicado</span></li>
         </ul>
-        <a href="mailto:comercial@psicoguard.com.br" class="btn pcta pcta-e">Falar com especialista</a>
+        <a href="https://wa.me/5551993351127" target="_blank" rel="noopener" class="btn pcta pcta-e">Falar com especialista</a>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--txt-3)">Todos os planos incluem criptografia AES-256, anonimização LGPD e suporte técnico especializado.</p>
@@ -935,7 +1001,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Começar Diagnóstico Grátis
       </a>
-      <a href="mailto:comercial@psicoguard.com.br" class="btn btn-ghost btn-lg">Falar com especialista</a>
+      <a href="https://wa.me/5551993351127" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Falar com especialista</a>
     </div>
   </div>
 </section>
@@ -977,18 +1043,33 @@
       <div class="foot-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="/privacidade">Política de Privacidade</a></li>
-          <li><a href="/termos">Termos de Uso</a></li>
-          <li><a href="/lgpd">Adequação LGPD</a></li>
-          <li><a href="/seguranca">Segurança</a></li>
+          <li><a href="#" data-modal="modal-privacidade">Política de Privacidade</a></li>
+          <li><a href="#" data-modal="modal-termos">Termos de Uso</a></li>
+          <li><a href="#" data-modal="modal-lgpd">Adequação LGPD</a></li>
+          <li><a href="#" data-modal="modal-seguranca">Segurança</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h4>Contato</h4>
         <ul>
-          <li><a href="mailto:suporte@psicoguard.com.br">suporte@psicoguard.com.br</a></li>
-          <li><a href="mailto:comercial@psicoguard.com.br">comercial@psicoguard.com.br</a></li>
-          <li><a href="https://wa.me/5511999999999">WhatsApp</a></li>
+          <li>
+            <a href="mailto:psicoguard@gmail.com" class="foot-contact-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="flex-shrink:0"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              psicoguard@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/5551993351127" target="_blank" rel="noopener" class="foot-contact-link">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="flex-shrink:0;color:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              +55 51 99335-1127
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/psicoguard" target="_blank" rel="noopener" class="foot-contact-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="flex-shrink:0;color:#E1306C"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              @psicoguard
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -1003,6 +1084,295 @@
   </div>
 </footer>
 
+
+<!-- ═══ MODAL: POLÍTICA DE PRIVACIDADE ═══ -->
+<div class="modal-overlay" id="modal-privacidade">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="title-priv">
+    <div class="modal-head">
+      <div>
+        <h3 id="title-priv">Política de Privacidade</h3>
+        <p>Última atualização: junho de 2026</p>
+      </div>
+      <button class="modal-close" data-close="modal-privacidade" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-tag">LGPD · Lei 13.709/2018</span>
+
+      <h4>1. Quem somos</h4>
+      <p>A <strong>PsicoGuard</strong> (CNPJ 00.000.000/0001-00) é a controladora dos dados pessoais coletados através desta plataforma. Atuamos como facilitadora do cumprimento da NR-1 (Portaria MTE 1.419/2024) e da Lei 14.457/2022, oferecendo diagnóstico, análise e geração de relatórios de riscos psicossociais.</p>
+      <p>Encarregada de Proteção de Dados (DPO): <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a></p>
+
+      <hr class="modal-divider">
+
+      <h4>2. Dados coletados e finalidades</h4>
+      <p>Coletamos dados em duas esferas:</p>
+      <ul>
+        <li><strong>Dados da empresa contratante:</strong> razão social, CNPJ, nome e e-mail do responsável, dados de faturamento. Finalidade: prestação do serviço e conformidade contratual.</li>
+        <li><strong>Dados dos colaboradores respondentes:</strong> matrícula funcional (para verificação de identidade), cargo e setor (para segmentação), respostas ao questionário psicossocial. Finalidade: avaliação de riscos nos termos da NR-1.</li>
+      </ul>
+      <p><strong>Dados de saúde mental são Dados Sensíveis</strong> conforme o Art. 5º, II da LGPD e recebem proteção diferenciada descrita na seção 4.</p>
+
+      <h4>3. Bases legais (Art. 7º e 11º LGPD)</h4>
+      <table class="modal-table">
+        <tr><th>Dado</th><th>Base Legal</th><th>Referência</th></tr>
+        <tr><td>Respostas do questionário psicossocial</td><td>Obrigação legal (NR-1) + Consentimento do colaborador</td><td>Art. 7º, II e I; Art. 11º, I e II, b</td></tr>
+        <tr><td>Dados de cargo e setor</td><td>Legítimo interesse da empresa em conformidade</td><td>Art. 7º, IX</td></tr>
+        <tr><td>Dados cadastrais da empresa</td><td>Execução de contrato</td><td>Art. 7º, V</td></tr>
+        <tr><td>Logs de acesso e auditoria</td><td>Obrigação legal e legítimo interesse em segurança</td><td>Art. 7º, II e IX</td></tr>
+      </table>
+
+      <h4>4. Proteção de dados sensíveis</h4>
+      <p>As respostas dos colaboradores são protegidas por:</p>
+      <ul>
+        <li><strong>Criptografia AES-256-GCM</strong> em repouso — nenhum dado é armazenado em texto simples.</li>
+        <li><strong>k-anonimidade ≥ 5</strong> — resultados só são exibidos quando há ao menos 5 respondentes por grupo, tornando impossível identificar indivíduos.</li>
+        <li>Nenhum relatório ou heatmap expõe respostas individuais.</li>
+        <li>A IA (Claude Sonnet, Anthropic) processa apenas dados já anonimizados para geração dos relatórios.</li>
+      </ul>
+
+      <h4>5. Retenção de dados</h4>
+      <ul>
+        <li>Dados brutos do questionário: excluídos em até 12 meses após a coleta.</li>
+        <li>Dados anonimizados (k-anonimidade): mantidos indefinidamente para fins estatísticos e de conformidade — não são dados pessoais (Art. 5º, III LGPD).</li>
+        <li>Logs de auditoria: 90 dias.</li>
+        <li>Relatórios gerados: 24 meses ou até rescisão contratual.</li>
+      </ul>
+
+      <h4>6. Seus direitos como titular (Art. 17–18 LGPD)</h4>
+      <p>Colaboradores e representantes da empresa podem solicitar:</p>
+      <ul>
+        <li><strong>Acesso</strong> aos dados pessoais tratados.</li>
+        <li><strong>Retificação</strong> de informações incorretas.</li>
+        <li><strong>Exclusão</strong> dos dados pessoais (observada a limitação: dados já anonimizados são irreversíveis).</li>
+        <li><strong>Portabilidade</strong> em formato estruturado (CSV/JSON).</li>
+        <li><strong>Informação</strong> sobre decisões automatizadas (relatórios gerados por IA).</li>
+        <li><strong>Oposição</strong> ao uso dos dados para fins específicos.</li>
+      </ul>
+      <p>Prazo de resposta: até 10 dias úteis. Contato: <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a></p>
+
+      <h4>7. Compartilhamento com terceiros</h4>
+      <ul>
+        <li><strong>Supabase</strong> (processador de dados) — infraestrutura de banco de dados na AWS São Paulo.</li>
+        <li><strong>Anthropic</strong> (processador) — IA para geração de relatórios, recebe apenas dados anonimizados.</li>
+        <li><strong>Vercel</strong> (processador) — hospedagem da aplicação web.</li>
+      </ul>
+      <p>Não vendemos, alugamos ou compartilhamos dados pessoais com terceiros para fins comerciais.</p>
+
+      <h4>8. Incidentes de segurança</h4>
+      <p>Em caso de incidente que possa afetar seus dados, notificaremos a ANPD e os titulares em até <strong>72 horas</strong> da confirmação, conforme Art. 48 da LGPD, informando o tipo de dado afetado e as medidas adotadas.</p>
+
+      <h4>9. Alterações nesta política</h4>
+      <p>Mudanças materiais serão comunicadas por e-mail com antecedência mínima de 15 dias. O uso continuado da plataforma após este prazo implica aceite das novas condições.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: TERMOS DE USO ═══ -->
+<div class="modal-overlay" id="modal-termos">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="title-term">
+    <div class="modal-head">
+      <div>
+        <h3 id="title-term">Termos de Uso</h3>
+        <p>Última atualização: junho de 2026</p>
+      </div>
+      <button class="modal-close" data-close="modal-termos" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-tag">Contrato de serviço B2B</span>
+
+      <h4>1. Objeto</h4>
+      <p>A PsicoGuard oferece uma plataforma SaaS para coleta, análise e geração de relatórios de riscos psicossociais, facilitando o cumprimento da <strong>NR-1 (Portaria MTE 1.419/2024)</strong> e da <strong>Lei 14.457/2022</strong>. A plataforma não substitui laudo clínico, SESMT ou responsabilidade legal da empresa contratante sobre o PGR final.</p>
+
+      <h4>2. Cadastro e elegibilidade</h4>
+      <p>O uso da plataforma é restrito a pessoas jurídicas (CNPJ ativo) com empregados sob regime CLT. O representante que realiza o cadastro declara ter poderes para vincular a empresa ao presente contrato.</p>
+
+      <h4>3. Planos e trial</h4>
+      <ul>
+        <li><strong>Trial de 7 dias:</strong> gratuito, sem necessidade de cartão de crédito, com acesso completo ao plano Starter.</li>
+        <li><strong>Planos pagos (Starter, Pro, Enterprise):</strong> cobrança mensal via Asaas (PIX, boleto bancário ou cartão de crédito).</li>
+        <li>Preços vigentes publicados na página de preços e sujeitos a reajuste com aviso prévio de 30 dias.</li>
+      </ul>
+
+      <h4>4. Obrigações da PsicoGuard</h4>
+      <ul>
+        <li>Manter a plataforma disponível (SLA 99,5% mensal).</li>
+        <li>Proteger os dados conforme descrito na Política de Privacidade e Política de Segurança.</li>
+        <li>Notificar incidentes de segurança em até 72 horas.</li>
+        <li>Responder a solicitações de suporte em até 2 dias úteis (plano Starter) ou 1 dia útil (planos Pro e Enterprise).</li>
+      </ul>
+
+      <h4>5. Obrigações da empresa contratante</h4>
+      <ul>
+        <li>Obter o consentimento explícito dos colaboradores antes de iniciar qualquer coleta.</li>
+        <li>Não utilizar os dados ou relatórios para demissão, punição ou discriminação de colaboradores (Art. 20, LGPD).</li>
+        <li>Responsabilizar-se pela interpretação jurídica dos resultados e pela elaboração final do PGR.</li>
+        <li>Manter as credenciais de acesso em sigilo e comunicar imediatamente qualquer comprometimento.</li>
+        <li>Não revender, sublicenciar ou transferir o acesso à plataforma a terceiros.</li>
+      </ul>
+
+      <h4>6. Limitação de responsabilidade</h4>
+      <p>A PsicoGuard não se responsabiliza por: (i) interpretações jurídicas dos dados gerados; (ii) decisões gerenciais baseadas nos relatórios; (iii) conformidade final do PGR perante o MTE; (iv) danos indiretos ou consequentes. A indenização máxima da PsicoGuard fica limitada ao valor de 12 meses do plano contratado.</p>
+
+      <h4>7. Rescisão</h4>
+      <ul>
+        <li>A contratante pode cancelar a qualquer momento pelo painel de configurações.</li>
+        <li>Cancelamento em planos anuais sujeito a multa proporcional ao período restante, salvo inadimplência da PsicoGuard.</li>
+        <li>Após o cancelamento, os dados são excluídos ou anonimizados em até 30 dias, mediante solicitação.</li>
+      </ul>
+
+      <h4>8. Propriedade intelectual</h4>
+      <p>A plataforma, seus algoritmos, interfaces e marcas pertencem exclusivamente à PsicoGuard. Os dados coletados e os relatórios gerados pertencem à empresa contratante. A PsicoGuard pode utilizar dados anonimizados e agregados para fins de pesquisa e melhoria do serviço.</p>
+
+      <h4>9. Disposições gerais</h4>
+      <p>Este contrato é regido pela lei brasileira. Fica eleito o foro da comarca de São Paulo/SP para dirimir eventuais controvérsias. Em caso de conflito entre este documento e contratos específicos firmados entre as partes, prevalece o contrato específico.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: ADEQUAÇÃO LGPD ═══ -->
+<div class="modal-overlay" id="modal-lgpd">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="title-lgpd">
+    <div class="modal-head">
+      <div>
+        <h3 id="title-lgpd">Adequação LGPD</h3>
+        <p>Lei 13.709/2018 · Dados sensíveis de saúde</p>
+      </div>
+      <button class="modal-close" data-close="modal-lgpd" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-tag">ANPD · Art. 11 LGPD</span>
+
+      <h4>1. Classificação dos dados tratados</h4>
+      <p>Os questionários psicossociais coletam informações sobre saúde mental, nível de estresse, percepção de assédio e bem-estar no trabalho. Esses dados se enquadram como <strong>Dados Sensíveis</strong> (Art. 5º, II, LGPD), exigindo bases legais específicas e medidas de proteção reforçadas.</p>
+      <p>Dados já submetidos à k-anonimidade (grupos de ≥ 5 pessoas) são irreversíveis e deixam de ser dados pessoais (Art. 5º, III, LGPD), não sendo cobertos pelas obrigações de tratamento.</p>
+
+      <h4>2. Bases legais para dados sensíveis (Art. 11)</h4>
+      <ul>
+        <li><strong>Consentimento explícito do titular</strong> (Art. 11, I) — coletado no início de cada diagnóstico, com registro de data, versão do formulário e hash de identificação anônima.</li>
+        <li><strong>Obrigação legal</strong> (Art. 11, II, b) — cumprimento da NR-1 (Portaria MTE 1.419/2024), que exige avaliação de riscos psicossociais de todos os empregadores com vínculo CLT.</li>
+      </ul>
+
+      <h4>3. Direitos dos titulares e como exercê-los</h4>
+      <table class="modal-table">
+        <tr><th>Direito (Art. 18)</th><th>Aplicabilidade</th><th>Limitação</th></tr>
+        <tr><td>Acesso</td><td>Sim</td><td>Dados anonimizados não identificam o titular</td></tr>
+        <tr><td>Retificação</td><td>Sim</td><td>Apenas antes da anonimização</td></tr>
+        <tr><td>Exclusão</td><td>Parcial</td><td>Dados k-anônimos são irreversíveis</td></tr>
+        <tr><td>Portabilidade</td><td>Sim</td><td>Dados brutos antes da anonimização</td></tr>
+        <tr><td>Revogação do consentimento</td><td>Sim</td><td>Impede participação em ciclos futuros</td></tr>
+        <tr><td>Oposição a decisões automatizadas</td><td>Sim</td><td>Relatórios de IA são informativos, não decisórios</td></tr>
+      </table>
+      <p>Para exercer qualquer direito, envie solicitação para <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a>. Prazo de resposta: <strong>até 10 dias úteis</strong>.</p>
+
+      <h4>4. Encarregado de Proteção de Dados (DPO)</h4>
+      <p>Conforme Art. 5º, VIII da LGPD, a PsicoGuard designou um Encarregado responsável por:</p>
+      <ul>
+        <li>Receber reclamações e comunicações dos titulares.</li>
+        <li>Orientar funcionários e contratados sobre práticas de proteção de dados.</li>
+        <li>Interagir com a Autoridade Nacional de Proteção de Dados (ANPD).</li>
+      </ul>
+      <p>Contato DPO: <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a></p>
+
+      <h4>5. Consentimento: como coletamos e registramos</h4>
+      <p>Antes de responder qualquer questionário, cada colaborador visualiza uma tela com:</p>
+      <ul>
+        <li>Qual dado está sendo coletado e para qual finalidade (NR-1).</li>
+        <li>Com quais subprocessadores os dados serão compartilhados.</li>
+        <li>Por quanto tempo os dados brutos serão retidos (até 12 meses).</li>
+        <li>Como exercer seus direitos e contato do DPO.</li>
+      </ul>
+      <p>O aceite é registrado com timestamp e identificador anônimo do ciclo, sem associar ao nome do colaborador.</p>
+
+      <h4>6. Avaliação de Impacto à Privacidade (DPIA)</h4>
+      <p>Dado o alto grau de sensibilidade dos dados de saúde mental, a PsicoGuard realizou um DPIA (Art. 32, LGPD) identificando os seguintes riscos e mitigações:</p>
+      <ul>
+        <li><strong>Risco:</strong> identificação de indivíduo via dados demográficos. <strong>Mitigação:</strong> k-anonimidade ≥ 5.</li>
+        <li><strong>Risco:</strong> acesso não autorizado. <strong>Mitigação:</strong> AES-256-GCM + RLS no banco de dados.</li>
+        <li><strong>Risco:</strong> uso dos dados para discriminação. <strong>Mitigação:</strong> cláusula contratual proibitiva e relatórios sem dados individuais.</li>
+      </ul>
+
+      <h4>7. Transferência internacional</h4>
+      <p>Os dados são armazenados primariamente na <strong>AWS São Paulo (sa-east-1)</strong>. A IA (Claude Sonnet, Anthropic) processa apenas dados já anonimizados, e a Anthropic possui cláusulas contratuais padrão (SCCs) adequadas. Não há transferência de dados pessoais para fora do Brasil.</p>
+
+      <h4>8. Canal de reclamação à ANPD</h4>
+      <p>Caso sua solicitação não seja atendida satisfatoriamente, você pode registrar reclamação diretamente na <strong>ANPD</strong> pelo portal: <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: SEGURANÇA ═══ -->
+<div class="modal-overlay" id="modal-seguranca">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="title-seg">
+    <div class="modal-head">
+      <div>
+        <h3 id="title-seg">Segurança</h3>
+        <p>Infraestrutura, criptografia e resposta a incidentes</p>
+      </div>
+      <button class="modal-close" data-close="modal-seguranca" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-tag">AES-256-GCM · TLS 1.3 · k≥5</span>
+
+      <h4>1. Criptografia em repouso</h4>
+      <p>Todas as respostas dos questionários são criptografadas com <strong>AES-256-GCM</strong> (Authenticated Encryption with Associated Data) antes de serem armazenadas. Isso garante simultaneamente confidencialidade e integridade dos dados — qualquer adulteração é detectada automaticamente.</p>
+      <ul>
+        <li>Chaves gerenciadas via variáveis de ambiente seguras (nunca expostas no código-fonte).</li>
+        <li>Nenhum dado sensível é armazenado em texto simples no banco de dados.</li>
+      </ul>
+
+      <h4>2. Criptografia em trânsito</h4>
+      <p>Toda comunicação entre o navegador/app e os servidores usa <strong>TLS 1.3</strong> com Perfect Forward Secrecy (PFS). O HSTS (HTTP Strict Transport Security) está habilitado, impedindo conexões inseguras.</p>
+
+      <h4>3. k-Anonimidade (proteção de identidade)</h4>
+      <p>Este é o mecanismo mais importante de proteção dos colaboradores. A plataforma aplica <strong>k-anonimidade com k ≥ 5</strong>: nenhum resultado é exibido para grupos com menos de 5 respondentes.</p>
+      <ul>
+        <li>Mesmo que alguém obtenha acesso não autorizado ao banco de dados, não consegue identificar respostas individuais.</li>
+        <li>Uma vez aplicada, a anonimização é <strong>irreversível</strong> — diferente de criptografia, não existe "chave" para reverter.</li>
+        <li>Dados anonimizados não são dados pessoais (Art. 5º, III, LGPD), reduzindo o escopo de risco.</li>
+      </ul>
+
+      <h4>4. Controle de acesso (RBAC)</h4>
+      <p>O acesso aos dados segue o princípio do mínimo privilégio:</p>
+      <ul>
+        <li><strong>Colaboradores:</strong> acessam apenas o formulário de resposta, sem visualizar resultados.</li>
+        <li><strong>Gestores/RH:</strong> visualizam apenas resultados agregados (heatmaps e scores por setor).</li>
+        <li><strong>Administradores:</strong> gerenciam diagnósticos, usuários e configurações da organização.</li>
+      </ul>
+      <p>Toda ação de leitura ou escrita em dados sensíveis é registrada em log de auditoria com timestamp, usuário e IP.</p>
+
+      <h4>5. Isolamento multi-tenant</h4>
+      <p>Cada organização opera em isolamento total. Utilizamos <strong>Row Level Security (RLS)</strong> no banco de dados Supabase: uma query de um tenant nunca pode retornar dados de outro tenant, mesmo em caso de bug na aplicação.</p>
+
+      <h4>6. Infraestrutura</h4>
+      <ul>
+        <li><strong>Banco de dados:</strong> Supabase (PostgreSQL gerenciado) na <strong>AWS São Paulo (sa-east-1)</strong> — dados permanecem no Brasil.</li>
+        <li><strong>Aplicação web:</strong> Vercel (edge network global, sem armazenamento de dados pessoais).</li>
+        <li><strong>IA:</strong> Claude Sonnet (Anthropic) — recebe apenas dados já anonimizados para geração dos relatórios.</li>
+        <li><strong>Backups:</strong> diários, com retenção de 30 dias, criptografados com a mesma chave de produção.</li>
+      </ul>
+
+      <h4>7. Resposta a incidentes</h4>
+      <p>Nosso processo em caso de incidente de segurança:</p>
+      <ul>
+        <li><strong>0–30 min:</strong> detecção e contenção (isolamento do sistema afetado).</li>
+        <li><strong>Até 24h:</strong> investigação e avaliação do impacto.</li>
+        <li><strong>Até 72h:</strong> notificação à ANPD e aos titulares afetados (conforme Art. 48, LGPD).</li>
+        <li><strong>Até 10 dias:</strong> relatório detalhado com causa raiz, dados afetados e medidas corretivas.</li>
+      </ul>
+      <p>Para reportar uma vulnerabilidade: <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a></p>
+
+      <h4>8. Vulnerabilidades e atualizações</h4>
+      <ul>
+        <li>Vulnerabilidades críticas (CVSS ≥ 9.0): corrigidas em até <strong>24 horas</strong>.</li>
+        <li>Vulnerabilidades altas (CVSS 7–8.9): corrigidas em até <strong>7 dias</strong>.</li>
+        <li>Dependências verificadas automaticamente a cada deploy.</li>
+      </ul>
+
+      <h4>9. Disponibilidade</h4>
+      <p>SLA de <strong>99,5% de disponibilidade mensal</strong>. Status em tempo real disponível em <a href="mailto:psicoguard@gmail.com">psicoguard@gmail.com</a>. Em caso de indisponibilidade superior a 4 horas seguidas, a empresa contratante tem direito a crédito proporcional na próxima fatura.</p>
+    </div>
+  </div>
+</div>
 
 <script>
   // Nav scroll
@@ -1034,6 +1404,35 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.rv, .rvl, .rvr').forEach(el => obs.observe(el));
+
+  // Modais legais
+  function openModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    m.querySelector('.modal-body').scrollTop = 0;
+  }
+  function closeModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('[data-modal]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); openModal(el.dataset.modal); });
+  });
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.dataset.close));
+  });
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay.id); });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+    }
+  });
 
   // Bento mouse glow
   document.querySelectorAll('.bc').forEach(card => {
