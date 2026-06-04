@@ -450,7 +450,7 @@
       position: relative;
     }
     .pc-feat::before {
-      content: 'Mais Popular'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      content: 'Mais popular'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
       background: var(--sky-2); color: #0C3D66;
       font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
       padding: 5px 16px; border-radius: 99px; white-space: nowrap; font-family: var(--fb);
@@ -614,6 +614,10 @@
       .prob-card { padding: 28px 24px; }
       .prob-num { font-size: 52px; }
       .bc { padding: 24px 20px; }
+      .fsc { padding: 22px 18px; }
+      .fmc { padding: 16px; }
+      .fmc-hm { grid-template-columns: 56px repeat(4,1fr); }
+      .feat-secondary { gap: 12px; }
       .step { padding: 0 16px; }
       .test-card { padding: 24px 20px; }
       .pc { padding: 28px 20px; }
@@ -626,6 +630,10 @@
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
       .hm-stats { grid-template-columns: repeat(3,1fr); }
+      .fmc-hm { grid-template-columns: 44px repeat(4,1fr); gap: 2px; }
+      .fmc-hm-cell { height: 16px; }
+      .feat-pills { gap: 6px; }
+      .feat-pill { font-size: 11px; padding: 4px 10px; }
       .pgrid { max-width: 100%; }
       .faq-list { margin-top: 36px; }
       summary { font-size: 14px; padding: 18px 20px; }
@@ -991,54 +999,49 @@
       <!-- Starter -->
       <div class="pc pc-base rv d1">
         <div class="pname pname-d">Starter</div>
-        <div class="pprice pprice-d"><sub>R$</sub>497</div>
+        <div class="pprice pprice-d"><sub>R$</sub>49,90</div>
         <div class="pper pper-d">por mês</div>
-        <div class="pdesc pdesc-d">Para empresas com até 50 colaboradores que precisam de conformidade rápida e gestão básica dos riscos psicossociais.</div>
+        <div class="pdesc pdesc-d">Ideal para empresas de até 100 funcionários.</div>
         <ul class="pfeats">
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Até 50 colaboradores</span></li>
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Diagnóstico COPSOQ-BR / HSE-IT</span></li>
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">PGR com plano de ação 5W2H</span></li>
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Heatmap e relatório PDF</span></li>
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Canal de Denúncias (Lei 14.457/2022)</span></li>
-          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Suporte por email</span></li>
+          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">5 créditos/mês</span></li>
+          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">25 disparos WA/mês</span></li>
+          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">Até 50 funcionários</span></li>
+          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">5 diagnósticos/ano</span></li>
+          <li><span class="ck ck-d"><svg viewBox="0 0 12 12" fill="none" stroke="#0284c7" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-d">1 instância WhatsApp inclusa</span></li>
         </ul>
         <a href="/cadastro?plano=starter" class="btn pcta pcta-d">Começar Grátis por 7 dias</a>
       </div>
 
-      <!-- Pro (featured) -->
+      <!-- Professional (featured) -->
       <div class="pc pc-feat rv d2">
-        <div class="pname pname-f">Pro</div>
-        <div class="pprice pprice-f"><sub style="color:rgba(255,255,255,.7)">R$</sub>997</div>
+        <div class="pname pname-f">Professional</div>
+        <div class="pprice pprice-f"><sub style="color:rgba(255,255,255,.7)">R$</sub>97,00</div>
         <div class="pper pper-f">por mês</div>
-        <div class="pdesc pdesc-f">Para médias empresas que precisam de monitoramento contínuo e controle de múltiplos setores.</div>
+        <div class="pdesc pdesc-f">Para empresas em crescimento com múltiplos setores.</div>
         <ul class="pfeats">
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Até 200 colaboradores</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Tudo do Starter</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Pulse Survey mensal automático</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Relatório Executivo com IA</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Calendário de reavaliação NR-1</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Histórico de versões do PGR</span></li>
-          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Suporte prioritário</span></li>
+          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">10 créditos/mês</span></li>
+          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">50 disparos WA/mês</span></li>
+          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">Até 200 funcionários</span></li>
+          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">20 diagnósticos/ano</span></li>
+          <li><span class="ck ck-f"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-f">2 instâncias WhatsApp inclusas</span></li>
         </ul>
-        <a href="/cadastro?plano=pro" class="btn pcta pcta-f">Começar Grátis por 7 dias</a>
+        <a href="/cadastro?plano=professional" class="btn pcta pcta-f">Começar Grátis por 7 dias</a>
       </div>
 
-      <!-- Enterprise -->
+      <!-- Business -->
       <div class="pc pc-ent rv d3">
-        <div class="pname pname-d">Enterprise</div>
-        <div class="pprice pprice-e" style="font-size:28px;padding-top:8px">Sob consulta</div>
-        <div class="pper pper-e">&nbsp;</div>
-        <div class="pdesc pdesc-e">Para grandes empresas com múltiplas unidades, integração customizada e SLA dedicado.</div>
+        <div class="pname pname-d">Business</div>
+        <div class="pprice pprice-e"><sub>R$</sub>299,00</div>
+        <div class="pper pper-e">por mês</div>
+        <div class="pdesc pdesc-e">Para grandes empresas com necessidade de conformidade total.</div>
         <ul class="pfeats">
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Colaboradores ilimitados</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Tudo do Pro</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Multi-CNPJ / unidades</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">API e integrações customizadas</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Implantação assistida</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">SLA 99.9% garantido</span></li>
-          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Gerente de conta dedicado</span></li>
+          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">30 créditos/mês</span></li>
+          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">100 disparos WA/mês</span></li>
+          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">Até 249 funcionários</span></li>
+          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">30 diagnósticos/ano</span></li>
+          <li><span class="ck ck-e"><svg viewBox="0 0 12 12" fill="none" stroke="#0ea5e9" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span class="pt-e">5 instâncias WhatsApp inclusas</span></li>
         </ul>
-        <a href="https://wa.me/5551993351127" target="_blank" rel="noopener" class="btn pcta pcta-e">Falar com especialista</a>
+        <a href="/cadastro?plano=business" class="btn pcta pcta-d" style="background:var(--sky-dk);color:#fff">Começar Grátis por 7 dias</a>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--txt-3)">Todos os planos incluem criptografia AES-256, anonimização LGPD e suporte técnico especializado.</p>
