@@ -82,7 +82,7 @@
     .btn-ghost { background: var(--sur); color: var(--txt-2); border: 1px solid var(--bdr); }
     .btn-ghost:hover { background: var(--sur-2); color: var(--txt); border-color: rgba(255,255,255,.15); }
     .btn-sm { padding: 10px 20px; font-size: 14px; border-radius: 8px; }
-    .btn-lg { padding: 18px 36px; font-size: 16px; border-radius: 14px; }
+    .btn-lg { padding: 13px 26px; font-size: 15px; border-radius: 10px; }
 
     /* ── BADGE ── */
     .badge {
@@ -146,22 +146,13 @@
       color: var(--txt-2); text-decoration: none; transition: color .2s;
     }
     .nav-drawer a:hover { color: var(--txt); }
-    .nav-drawer .btn { font-size: 16px; padding: 14px 36px; }
+    .nav-drawer .btn { font-size: 15px; padding: 12px 28px; }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
       position: relative; overflow: hidden; padding: 120px 0 80px;
       background: var(--bg);
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
     }
     .orb {
       position: absolute; border-radius: 50%;
@@ -213,7 +204,7 @@
       opacity: 0; animation: fup .8s ease .58s forwards;
     }
     .hero-actions {
-      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
       opacity: 0; animation: fup .8s ease .72s forwards;
     }
     .hero-disclaimer {
@@ -279,7 +270,11 @@
     .prob-title { color: #0F172A; }
     .prob-sub { color: #475569; }
     .prob-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 56px; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; }
-    @media (max-width: 900px) { .prob-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .prob-grid { grid-template-columns: 1fr; }
+      .prob-card { border-right: none; border-bottom: 1px solid #E2E8F0; }
+      .prob-card:last-child { border-bottom: none; }
+    }
     .prob-card { padding: 40px 36px; border-right: 1px solid #E2E8F0; position: relative; overflow: hidden; transition: background .3s; }
     .prob-card:last-child { border-right: none; }
     .prob-card:hover { background: #FAFAFA; }
@@ -289,38 +284,118 @@
     .prob-card p { font-size: 14px; color: #64748B; line-height: 1.7; }
     .prob-stat { margin-top: 20px; padding-top: 16px; border-top: 1px solid #E2E8F0; font-family: var(--fd); font-size: 20px; font-weight: 800; color: var(--red); }
 
-    /* ── FEATURES BENTO ── */
+    /* ── FEATURES NARRATIVE ── */
     .feat-section { background: var(--bg); }
-    .bento { display: grid; grid-template-columns: repeat(12,1fr); gap: 14px; margin-top: 56px; }
-    @media (max-width: 960px) { .bento { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .bento { grid-template-columns: 1fr; } }
-    .bc {
-      background: var(--sur); border: 1px solid var(--bdr); border-radius: 20px; padding: 32px;
+
+    .feat-narrative { margin-top: 64px; }
+
+    .feat-chapter {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: center;
+      padding: 72px 0; position: relative;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .feat-chapter:last-of-type { border-bottom: none; }
+    .feat-chapter.rev { direction: rtl; }
+    .feat-chapter.rev > * { direction: ltr; }
+    @media (max-width: 900px) {
+      .feat-chapter { grid-template-columns: 1fr; gap: 36px; direction: ltr !important; padding: 48px 0; }
+      .feat-chapter > * { direction: ltr !important; }
+    }
+
+    .feat-ghost {
+      position: absolute; font-family: var(--fd);
+      font-size: clamp(120px, 18vw, 220px); font-weight: 800;
+      color: rgba(255,255,255,.022); line-height: 1; letter-spacing: -8px;
+      pointer-events: none; z-index: 0;
+      top: 50%; transform: translateY(-50%);
+      right: -16px; user-select: none;
+    }
+    .feat-chapter.rev .feat-ghost { right: auto; left: -16px; }
+
+    .feat-text { position: relative; z-index: 1; }
+    .feat-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--sky-2); margin-bottom: 18px;
+    }
+    .feat-tag-line { width: 0; height: 1.5px; background: var(--sky-2); display: block; transition: width .5s ease .15s; }
+    .feat-tag.on .feat-tag-line { width: 24px; }
+    .feat-statement {
+      font-family: var(--fd);
+      font-size: clamp(22px, 2.6vw, 32px);
+      font-weight: 800; line-height: 1.2; letter-spacing: -.5px;
+      color: var(--txt); margin-bottom: 16px;
+    }
+    .feat-desc { font-size: 14px; color: var(--txt-2); line-height: 1.78; margin-bottom: 22px; max-width: 420px; }
+    .feat-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .feat-pill {
+      font-size: 12px; color: var(--txt-2);
+      background: var(--sur); border: 1px solid var(--bdr);
+      padding: 5px 12px; border-radius: 99px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .feat-pill::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--sky); flex-shrink: 0; }
+
+    .feat-mock { position: relative; z-index: 1; }
+    .fmc {
+      background: rgba(8,13,24,.96); border: 1px solid var(--bdr); border-radius: 20px;
+      padding: 22px; box-shadow: 0 24px 64px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.03);
+    }
+    .fmc-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .fmc-ttl { font-size: 12px; font-weight: 600; color: var(--txt-2); }
+
+    /* Mock 1 */
+    .fmc-prog-row { margin-bottom: 16px; }
+    .fmc-prog-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--txt-3); margin-bottom: 6px; }
+    .fmc-prog-track { height: 6px; background: var(--bdr); border-radius: 99px; overflow: hidden; }
+    .fmc-prog-fill { height: 100%; background: linear-gradient(90deg, var(--sky-dk), var(--sky)); border-radius: 99px; }
+    .fmc-rows { display: flex; flex-direction: column; gap: 6px; }
+    .fmc-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--sur); border: 1px solid var(--bdr); border-radius: 8px; }
+    .fmc-av { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg,var(--sky-dk),var(--sky)); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .fmc-nm { flex: 1; font-size: 12px; color: var(--txt-2); }
+    .fmc-ok { font-size: 10px; font-weight: 600; color: var(--green); }
+    .fmc-pend { font-size: 10px; color: var(--txt-3); }
+    .fmc-more { font-size: 11px; color: var(--txt-3); text-align: center; margin-top: 8px; }
+
+    /* Mock 2 */
+    .fmc-hm { display: grid; grid-template-columns: 68px repeat(4,1fr); gap: 3px; margin-bottom: 14px; }
+    .fmc-hm-lbl { font-size: 9px; color: var(--txt-3); display: flex; align-items: center; }
+    .fmc-hm-hdr { font-size: 8px; color: var(--txt-3); text-align: center; padding-bottom: 2px; }
+    .fmc-hm-cell { height: 22px; border-radius: 3px; animation: cp var(--d,3s) ease-in-out infinite var(--dl,0s); }
+    .fmc-alert { display: flex; align-items: center; gap: 8px; background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2); border-radius: 8px; padding: 9px 12px; font-size: 12px; color: #FCA5A5; }
+    .fmc-alert svg { width:14px;height:14px;flex-shrink:0; }
+
+    /* Mock 3 */
+    .fmc-badge-ok { display: flex; align-items: center; gap: 8px; background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); border-radius: 8px; padding: 9px 12px; font-size: 12px; color: #6EE7B7; margin-bottom: 14px; }
+    .fmc-badge-ok svg { width:14px;height:14px;flex-shrink:0; }
+    .fmc-act-list { display: flex; flex-direction: column; gap: 7px; }
+    .fmc-act { background: var(--sur); border: 1px solid var(--bdr); border-radius: 10px; padding: 11px 13px; }
+    .fmc-act-top { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+    .fmc-act-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); flex-shrink: 0; }
+    .fmc-act-name { font-size: 12px; font-weight: 600; color: var(--txt); }
+    .fmc-act-meta { font-size: 11px; color: var(--txt-3); padding-left: 14px; }
+
+    /* Secondary cards */
+    .feat-secondary { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--bdr); }
+    @media (max-width: 768px) { .feat-secondary { grid-template-columns: 1fr; } }
+    .fsc {
+      background: var(--sur); border: 1px solid var(--bdr); border-radius: 20px; padding: 28px 24px;
       transition: border-color .3s, background .3s, transform .3s;
       position: relative; overflow: hidden;
     }
-    .bc:hover { border-color: var(--bdr-sky); background: rgba(14,165,233,.03); transform: translateY(-3px); }
-    .bc::after {
+    .fsc:hover { border-color: var(--bdr-sky); background: rgba(14,165,233,.03); transform: translateY(-2px); }
+    .fsc::after {
       content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-      background: radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(14,165,233,.05), transparent 40%);
+      background: radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(14,165,233,.06), transparent 40%);
     }
-    .bw { grid-column: span 7; }
-    .bn { grid-column: span 5; }
-    .bh { grid-column: span 6; }
-    @media (max-width: 960px) { .bw,.bn,.bh { grid-column: span 1; } }
-    .bi {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: linear-gradient(135deg, var(--sky-dk), var(--sky));
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px; box-shadow: 0 4px 20px rgba(14,165,233,.25);
-      flex-shrink: 0;
-    }
-    .bi svg { width: 26px; height: 26px; color: #fff; }
-    .bc h3 { font-family: var(--fd); font-size: 20px; font-weight: 700; color: var(--txt); margin-bottom: 10px; }
-    .bc p { font-size: 14px; color: var(--txt-2); line-height: 1.7; }
-    .bl { margin-top: 16px; list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .bl li { font-size: 13px; color: var(--txt-2); display: flex; align-items: center; gap: 8px; }
-    .bl li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sky); flex-shrink: 0; }
+    .fsc-icon { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg,var(--sky-dk),var(--sky)); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .fsc-icon svg { width: 22px; height: 22px; color: #fff; }
+    .fsc h3 { font-family: var(--fd); font-size: 16px; font-weight: 700; color: var(--txt); margin-bottom: 8px; }
+    .fsc p { font-size: 13px; color: var(--txt-2); line-height: 1.65; }
+    .fsc-list { margin-top: 14px; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .fsc-list li { font-size: 12px; color: var(--txt-2); display: flex; align-items: center; gap: 7px; }
+    .fsc-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--sky); flex-shrink: 0; }
 
     /* ── STEPS ── */
     .steps-section { background: var(--bg-2); }
@@ -340,6 +415,12 @@
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 24px; position: relative; z-index: 1;
       box-shadow: 0 0 0 10px rgba(14,165,233,.08), 0 8px 32px rgba(14,165,233,.28);
+      transition: box-shadow .3s ease, transform .3s ease;
+      cursor: default;
+    }
+    .step:hover .step-n {
+      box-shadow: 0 0 0 16px rgba(14,165,233,.12), 0 12px 48px rgba(14,165,233,.5);
+      transform: scale(1.08);
     }
     .step h3 { font-family: var(--fd); font-size: 18px; font-weight: 700; color: var(--txt); margin-bottom: 10px; }
     .step p { font-size: 14px; color: var(--txt-2); line-height: 1.7; }
@@ -447,13 +528,15 @@
 
     /* ── REVEAL ── */
     @media (prefers-reduced-motion: no-preference) {
-      .rv  { opacity:0; transform:translateY(32px); transition:opacity .7s ease, transform .7s ease; }
+      .rv  { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
       .rvl { opacity:0; transform:translateX(-28px); transition:opacity .7s ease, transform .7s ease; }
       .rvr { opacity:0; transform:translateX(28px);  transition:opacity .7s ease, transform .7s ease; }
       .rv.on, .rvl.on, .rvr.on { opacity:1; transform:none; }
+      .feat-ghost.rv { transform: scale(1.08) translateY(0); }
+      .feat-ghost.rv.on { opacity:1; transform: scale(1) translateY(-50%); }
     }
-    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
-    .d4{transition-delay:.4s} .d5{transition-delay:.5s} .d6{transition-delay:.6s}
+    .d1{transition-delay:.12s} .d2{transition-delay:.24s} .d3{transition-delay:.36s}
+    .d4{transition-delay:.5s}  .d5{transition-delay:.62s} .d6{transition-delay:.74s}
 
     .sec-hdr { max-width: 620px; }
     .sec-hdr.c { margin: 0 auto; text-align: center; }
@@ -525,8 +608,8 @@
       .section { padding: 64px 0; }
       .hero { padding: 100px 0 60px; min-height: auto; }
       .hero-title { letter-spacing: -1px; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .hero-actions .btn { text-align: center; justify-content: center; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .hero-actions .btn { width: 100%; max-width: 320px; }
       .trust-strip .ti { padding: 20px 32px; }
       .prob-card { padding: 28px 24px; }
       .prob-num { font-size: 52px; }
@@ -542,7 +625,6 @@
 
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
-      .hero-actions .btn-lg { padding: 16px 24px; font-size: 15px; }
       .hm-stats { grid-template-columns: repeat(3,1fr); }
       .pgrid { max-width: 100%; }
       .faq-list { margin-top: 36px; }
@@ -582,8 +664,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-actions">
-      <a href="/login" class="nav-login">Entrar</a>
-      <a href="/cadastro" class="btn btn-primary btn-sm">Começar Grátis</a>
+      <a href="https://psicoguard.vercel.app/login" class="nav-login">Entrar</a>
       <button class="nav-burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -597,7 +678,7 @@
   <a href="#precos" class="drawer-link">Preços</a>
   <a href="#faq" class="drawer-link">FAQ</a>
   <a href="/login" class="drawer-link" style="font-size:18px;font-weight:500">Entrar</a>
-  <a href="/cadastro" class="btn btn-primary">Começar Grátis</a>
+  <a href="/cadastro" class="btn btn-primary">Começar Agora</a>
 </div>
 
 
@@ -622,7 +703,7 @@
         <div class="hero-actions">
           <a href="/cadastro" class="btn btn-primary btn-lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Começar Diagnóstico Grátis
+            Começar Agora
           </a>
           <a href="#como-funciona" class="btn btn-ghost btn-lg">Ver como funciona</a>
         </div>
@@ -667,10 +748,6 @@
 <section class="section prob-section" id="problema">
   <div class="container">
     <div class="sec-hdr rv">
-      <p class="lbl prob-lbl">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        O problema
-      </p>
       <h2 class="title prob-title">Sem gestão psicossocial,<br>sua empresa está exposta</h2>
       <p class="sub prob-sub">A Portaria MTE 1.419/2024 tornou obrigatório o gerenciamento de riscos psicossociais. Mas o risco real vai além da multa: está no clima, na produtividade e nos afastamentos que você ainda não mapeou.</p>
     </div>
@@ -702,85 +779,137 @@
 <section class="section feat-section" id="solucao">
   <div class="container">
     <div class="sec-hdr c rv">
-      <p class="lbl" style="justify-content:center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        A solução
-      </p>
       <h2 class="title">Gestão psicossocial completa,<br>em uma plataforma</h2>
       <p class="sub">Da avaliação inicial ao monitoramento contínuo: mapeie riscos, priorize ações e comprove conformidade sem sair da plataforma.</p>
     </div>
 
-    <div class="bento">
-      <!-- Wide: Avaliação -->
-      <div class="bc bw rv d1">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <h3>Avaliação Científica</h3>
-        <p>Aplique o COPSOQ-BR (87 itens, 27 dimensões) ou HSE-IT (35 itens, 7 dimensões) via link, QR Code ou WhatsApp. Coleta anônima com k-anonimidade ≥5. LGPD garantida.</p>
-        <ul class="bl">
-          <li>147 itens validados pelo MTE</li>
-          <li>WhatsApp, web e QR Code</li>
-          <li>Verificação por matrícula, anonimato garantido</li>
-          <li>Dashboard de respostas em tempo real</li>
-        </ul>
-      </div>
-      <!-- Narrow: Mapeamento -->
-      <div class="bc bn rv d2">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <h3>Mapeamento de Riscos</h3>
-        <p>Score 1–5 por dimensão, heatmap por setor e cargo, e priorização automática dos riscos críticos.</p>
-        <ul class="bl">
-          <li>Score por dimensão psicossocial</li>
-          <li>Heatmap por setor e cargo</li>
-          <li>Priorização automática</li>
-          <li>Relatório executivo para diretoria</li>
-        </ul>
+    <div class="feat-narrative">
+
+      <!-- Capítulo 1: Avaliação -->
+      <div class="feat-chapter">
+        <div class="feat-text">
+          <div class="feat-tag rv"><span class="feat-tag-line"></span>Avaliação Científica</div>
+          <h3 class="feat-statement rv d1">147 questões para medir o que nenhum relatório de RH enxerga.</h3>
+          <p class="feat-desc rv d2">Aplique o COPSOQ-BR ou HSE-IT via WhatsApp, link ou QR Code. Cada resposta é criptografada. Nenhum colaborador é identificável individualmente.</p>
+          <div class="feat-pills rv d3">
+            <span class="feat-pill">27 dimensões psicossociais</span>
+            <span class="feat-pill">k-anonimidade ≥5</span>
+            <span class="feat-pill">LGPD garantida</span>
+            <span class="feat-pill">Tempo real</span>
+          </div>
+        </div>
+        <div class="feat-mock rv d4">
+          <div class="fmc">
+            <div class="fmc-hdr">
+              <span class="fmc-ttl">Diagnóstico · COPSOQ-BR</span>
+              <span class="badge badge-sky" style="font-size:11px">Coleta ativa</span>
+            </div>
+            <div class="fmc-prog-row">
+              <div class="fmc-prog-meta"><span>Taxa de resposta</span><span style="color:var(--green);font-weight:600">94%</span></div>
+              <div class="fmc-prog-track"><div class="fmc-prog-fill" style="width:94%"></div></div>
+            </div>
+            <div class="fmc-rows">
+              <div class="fmc-row"><div class="fmc-av">MS</div><span class="fmc-nm">Maria S. · Vendas</span><span class="fmc-ok">✓ Respondido</span></div>
+              <div class="fmc-row"><div class="fmc-av">JP</div><span class="fmc-nm">João P. · TI</span><span class="fmc-ok">✓ Respondido</span></div>
+              <div class="fmc-row"><div class="fmc-av">AL</div><span class="fmc-nm">Ana L. · Operações</span><span class="fmc-pend">⏳ Pendente</span></div>
+            </div>
+            <p class="fmc-more">+ 145 respondentes</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Narrow: Canal Denúncias -->
-      <div class="bc bn rv d1">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Canal de Denúncias</h3>
-        <p>Atenda à Lei 14.457/2022 (CIPA) com canal anônimo de denúncias. Painel RH com gestão de tickets e resposta direta ao denunciante.</p>
-        <ul class="bl">
-          <li>Formulário anônimo + código de rastreamento</li>
-          <li>Painel RH com gestão de status</li>
-          <li>QR Code para divulgação interna</li>
-        </ul>
-      </div>
-      <!-- Wide: PGR -->
-      <div class="bc bw rv d2">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <h3>PGR com IA</h3>
-        <p>Com um clique, a IA gera o Programa de Gerenciamento de Riscos completo: plano de ação 5W2H por risco, responsáveis, prazos e PDF profissional pronto para assinar.</p>
-        <ul class="bl">
-          <li>PGR no formato exigido pelo MTE</li>
-          <li>Plano de ação 5W2H por risco identificado</li>
-          <li>Histórico de versões para fiscalização</li>
-          <li>PDF profissional para download imediato</li>
-        </ul>
+      <!-- Capítulo 2: Mapeamento (invertido) -->
+      <div class="feat-chapter rev">
+        <div class="feat-text">
+          <div class="feat-tag rv"><span class="feat-tag-line"></span>Mapeamento de Riscos</div>
+          <h3 class="feat-statement rv d1">Cada setor tem seu risco. O heatmap mostra onde agir primeiro.</h3>
+          <p class="feat-desc rv d2">Score 1–5 por dimensão psicossocial, cruzado por setor e cargo. Os focos críticos ficam visíveis imediatamente, sem interpretação manual.</p>
+          <div class="feat-pills rv d3">
+            <span class="feat-pill">Score por dimensão</span>
+            <span class="feat-pill">Heatmap por setor e cargo</span>
+            <span class="feat-pill">Relatório executivo IA</span>
+          </div>
+        </div>
+        <div class="feat-mock rv d4">
+          <div class="fmc">
+            <div class="fmc-hdr"><span class="fmc-ttl">Mapa de Exposição Psicossocial</span></div>
+            <div class="fmc-hm">
+              <div></div>
+              <div class="fmc-hm-hdr">Admin</div><div class="fmc-hm-hdr">Vendas</div><div class="fmc-hm-hdr">TI</div><div class="fmc-hm-hdr">Ops</div>
+              <div class="fmc-hm-lbl">Carga</div>
+              <div class="fmc-hm-cell c3" style="--d:3.1s;--dl:0s"></div><div class="fmc-hm-cell c5" style="--d:2.8s;--dl:.2s"></div><div class="fmc-hm-cell c4" style="--d:3.3s;--dl:.1s"></div><div class="fmc-hm-cell c3" style="--d:2.9s;--dl:.3s"></div>
+              <div class="fmc-hm-lbl">Autonomia</div>
+              <div class="fmc-hm-cell c2" style="--d:3.2s;--dl:.4s"></div><div class="fmc-hm-cell c3" style="--d:2.7s;--dl:.5s"></div><div class="fmc-hm-cell c1" style="--d:3.4s;--dl:.2s"></div><div class="fmc-hm-cell c2" style="--d:3.1s;--dl:.1s"></div>
+              <div class="fmc-hm-lbl">Assédio</div>
+              <div class="fmc-hm-cell c1" style="--d:3.0s;--dl:.3s"></div><div class="fmc-hm-cell c2" style="--d:3.2s;--dl:.4s"></div><div class="fmc-hm-cell c1" style="--d:2.8s;--dl:0s"></div><div class="fmc-hm-cell c1" style="--d:3.1s;--dl:.5s"></div>
+            </div>
+            <div class="fmc-alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+              3 focos críticos · Vendas e Operações
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Half: Monitoramento -->
-      <div class="bc bh rv d1">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <!-- Capítulo 3: PGR -->
+      <div class="feat-chapter">
+        <div class="feat-text">
+          <div class="feat-tag rv"><span class="feat-tag-line"></span>PGR com IA</div>
+          <h3 class="feat-statement rv d1">Do diagnóstico ao plano de ação assinado. Sem consultoria, sem planilha.</h3>
+          <p class="feat-desc rv d2">A IA gera o Programa de Gerenciamento de Riscos completo com plano 5W2H por risco identificado. PDF profissional pronto para assinar e arquivar.</p>
+          <div class="feat-pills rv d3">
+            <span class="feat-pill">Formato MTE</span>
+            <span class="feat-pill">Plano 5W2H por risco</span>
+            <span class="feat-pill">Histórico de versões</span>
+            <span class="feat-pill">PDF em 1 clique</span>
+          </div>
+        </div>
+        <div class="feat-mock rv d4">
+          <div class="fmc">
+            <div class="fmc-hdr"><span class="fmc-ttl">PGR · Ciclo 2026</span></div>
+            <div class="fmc-badge-ok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>
+              PGR gerado com IA · Versão 2 · PDF disponível
+            </div>
+            <div class="fmc-act-list">
+              <div class="fmc-act">
+                <div class="fmc-act-top"><span class="fmc-act-dot"></span><span class="fmc-act-name">Carga de trabalho · Vendas</span></div>
+                <div class="fmc-act-meta">Reduzir horas extras em 20% · RH · 30 dias</div>
+              </div>
+              <div class="fmc-act">
+                <div class="fmc-act-top"><span class="fmc-act-dot"></span><span class="fmc-act-name">Liderança · Operações</span></div>
+                <div class="fmc-act-meta">Capacitação de líderes · Gestão · 60 dias</div>
+              </div>
+              <div class="fmc-act">
+                <div class="fmc-act-top"><span class="fmc-act-dot"></span><span class="fmc-act-name">Autonomia · TI</span></div>
+                <div class="fmc-act-meta">Revisão de processos decisórios · TI · 45 dias</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Features secundárias -->
+    <div class="feat-secondary">
+      <div class="fsc rv d1">
+        <div class="fsc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <h3>Monitoramento Contínuo</h3>
-        <p>O Pulse Survey mensal envia questionários curtos para seus colaboradores via WhatsApp e exibe a evolução dos riscos ao longo do tempo, sem esperar o próximo ciclo anual.</p>
-        <ul class="bl">
-          <li>Ciclos mensais automáticos via WhatsApp</li>
-          <li>Gráfico de tendência por dimensão</li>
-          <li>Alertas quando scores pioram</li>
-        </ul>
+        <p>Pulse Survey mensal via WhatsApp. Acompanhe a evolução dos riscos sem esperar o próximo ciclo anual.</p>
+        <ul class="fsc-list"><li>Ciclos mensais automáticos</li><li>Gráfico de tendência por dimensão</li><li>Alertas quando scores pioram</li></ul>
       </div>
-      <!-- Half: Registros -->
-      <div class="bc bh rv d2">
-        <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="fsc rv d2">
+        <div class="fsc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Canal de Denúncias</h3>
+        <p>Atenda à Lei 14.457/2022 com canal anônimo. Painel RH para gestão de tickets com resposta direta ao denunciante.</p>
+        <ul class="fsc-list"><li>Formulário 100% anônimo</li><li>Código de rastreamento único</li><li>QR Code para divulgação interna</li></ul>
+      </div>
+      <div class="fsc rv d3">
+        <div class="fsc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         <h3>Registros e Rastreabilidade</h3>
-        <p>Cada diagnóstico, versão do PGR e ação registrada fica documentada com data e responsável. Sua defesa completa em caso de fiscalização do MTE.</p>
-        <ul class="bl">
-          <li>Histórico completo de versões do PGR</li>
-          <li>Calendário de reavaliação NR-1 com alertas</li>
-          <li>Log de ações por usuário e data</li>
-        </ul>
+        <p>Cada diagnóstico e versão do PGR documentada com data e responsável. Defesa completa em caso de fiscalização do MTE.</p>
+        <ul class="fsc-list"><li>Histórico de versões do PGR</li><li>Calendário de reavaliação NR-1</li><li>Log de ações por usuário</li></ul>
       </div>
     </div>
   </div>
@@ -791,10 +920,6 @@
 <section class="section steps-section" id="como-funciona">
   <div class="container">
     <div class="sec-hdr c rv">
-      <p class="lbl" style="justify-content:center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Como funciona
-      </p>
       <h2 class="title">Do mapeamento ao monitoramento<br>em 3 etapas</h2>
     </div>
     <div class="steps">
@@ -822,10 +947,6 @@
 <section class="section test-section" id="depoimentos">
   <div class="container">
     <div class="sec-hdr c rv">
-      <p class="lbl" style="justify-content:center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Depoimentos
-      </p>
       <h2 class="title">O que nossos clientes dizem</h2>
     </div>
     <div class="test-grid">
@@ -862,10 +983,6 @@
 <section class="section price-section" id="precos">
   <div class="container">
     <div class="sec-hdr c rv">
-      <p class="lbl" style="justify-content:center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Preços
-      </p>
       <h2 class="title">Planos para cada tamanho<br>de empresa</h2>
       <p class="sub">Compare com o custo de uma multa: <strong style="color:var(--sky-2)">R$6.708 por trabalhador</strong>. A conformidade custa muito menos.</p>
     </div>
@@ -933,10 +1050,6 @@
 <section class="section faq-section" id="faq">
   <div class="container">
     <div class="sec-hdr c rv">
-      <p class="lbl faq-lbl" style="justify-content:center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        FAQ
-      </p>
       <h2 class="title faq-title">Perguntas frequentes</h2>
     </div>
 
@@ -999,7 +1112,7 @@
     <div class="cta-acts">
       <a href="/cadastro" class="btn btn-primary btn-lg">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Começar Diagnóstico Grátis
+        Começar Agora
       </a>
       <a href="https://wa.me/5551993351127" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Falar com especialista</a>
     </div>
@@ -1434,8 +1547,8 @@
     }
   });
 
-  // Bento mouse glow
-  document.querySelectorAll('.bc').forEach(card => {
+  // Mouse glow
+  document.querySelectorAll('.bc, .fsc').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
