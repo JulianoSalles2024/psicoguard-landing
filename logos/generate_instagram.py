@@ -1,0 +1,108 @@
+"""
+Gera a imagem de perfil Instagram do PsicoGuard em alta resolução (1080x1080).
+Salva o arquivo como: psicoguard-instagram-profile.png
+"""
+
+import math
+
+# ── Cria um SVG 1080x1080 baseado exatamente na logo vertical-dark ──────────
+# O viewBox original é 160x112; vamos escalar para 1080 mantendo proporções.
+# Usamos um canvas 1080x1080 e centralizamos o logo verticalmente.
+
+SCALE = 1080 / 160  # ≈ 6.75
+
+def pt(x, y):
+    """Escala um ponto do espaço original (160x112) para o canvas 1080x1080."""
+    return (x * SCALE, y * SCALE + (1080 - 112 * SCALE) / 2)
+
+svg_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1080 1080"
+     width="1080" height="1080"
+     role="img" aria-label="PsicoGuard — Perfil Instagram">
+  <title>PsicoGuard</title>
+
+  <!-- Fundo escuro full-square -->
+  <rect width="1080" height="1080" fill="#0F172A"/>
+
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Grupo principal: escalonado de 160x112 → 1080x1080 -->
+  <!-- Offset vertical para centralizar: (1080 - 112*{SCALE:.4f})/2 = {(1080 - 112*SCALE)/2:.2f} -->
+  <g transform="translate(0, {(1080 - 112*SCALE)/2:.4f}) scale({SCALE:.6f})">
+
+    <!-- Fundo do card (opcional – já temos o rect acima) -->
+    <!-- <rect x="0" y="0" width="160" height="112" rx="14" fill="#0F172A"/> -->
+
+    <!-- Ícone circular com gradiente -->
+    <g transform="translate(48,4)">
+      <circle cx="32" cy="32" r="29" fill="url(#g)"/>
+      <!-- Rede neural - linhas -->
+      <g stroke="rgba(255,255,255,0.45)" stroke-width="1.4" fill="none" stroke-linecap="round">
+        <line x1="32" y1="32" x2="49" y2="32"/>
+        <line x1="32" y1="32" x2="37" y2="48"/>
+        <line x1="32" y1="32" x2="18" y2="42"/>
+        <line x1="32" y1="32" x2="18" y2="22"/>
+        <line x1="32" y1="32" x2="37" y2="16"/>
+        <line x1="49" y1="32" x2="37" y2="16"/>
+        <line x1="49" y1="32" x2="37" y2="48"/>
+        <line x1="37" y1="16" x2="18" y2="22"/>
+        <line x1="37" y1="48" x2="18" y2="42"/>
+        <line x1="18" y1="22" x2="18" y2="42"/>
+      </g>
+      <!-- Nós brancos externos -->
+      <circle cx="49" cy="32" r="3"   fill="white"/>
+      <circle cx="37" cy="48" r="3"   fill="white"/>
+      <circle cx="18" cy="42" r="3"   fill="white"/>
+      <circle cx="18" cy="22" r="3"   fill="white"/>
+      <circle cx="37" cy="16" r="3"   fill="white"/>
+      <!-- Nó central maior -->
+      <circle cx="32" cy="32" r="5.5" fill="white"/>
+    </g>
+
+    <!-- Texto PsicoGuard -->
+    <text x="80" y="93"
+          text-anchor="middle"
+          font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif"
+          font-size="24"
+          letter-spacing="-0.5">
+      <tspan font-weight="700" fill="#FFFFFF">Psico</tspan><tspan font-weight="300" fill="#BAE6FD">Guard</tspan>
+    </text>
+
+    <!-- Subtítulo -->
+    <text x="80" y="108"
+          text-anchor="middle"
+          font-family="'Segoe UI',Arial,sans-serif"
+          font-size="8"
+          fill="#475569"
+          letter-spacing="2">CONFORMIDADE NR-1</text>
+
+  </g>
+</svg>
+"""
+
+# Salva o SVG em alta resolução
+svg_path = "psicoguard-instagram-profile.svg"
+with open(svg_path, "w", encoding="utf-8") as f:
+    f.write(svg_content)
+
+print(f"✅ SVG salvo em: {svg_path}")
+print()
+print("Para converter para PNG 1080x1080 (alta resolução), use uma das opções:")
+print()
+print("  OPÇÃO 1 — Inkscape (recomendado):")
+print("    inkscape psicoguard-instagram-profile.svg --export-png=psicoguard-instagram-profile.png --export-width=1080 --export-height=1080")
+print()
+print("  OPÇÃO 2 — Online (fácil):")
+print("    https://cloudconvert.com/svg-to-png")
+print("    → Faça upload de psicoguard-instagram-profile.svg")
+print("    → Defina width=1080, height=1080, DPI=144")
+print()
+print("  OPÇÃO 3 — cairosvg (Python):")
+print("    pip install cairosvg")
+print("    python -c \"import cairosvg; cairosvg.svg2png(url='psicoguard-instagram-profile.svg', write_to='psicoguard-instagram-profile.png', output_width=1080, output_height=1080)\"")
