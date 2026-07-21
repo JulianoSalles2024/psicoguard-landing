@@ -690,6 +690,18 @@
     .signup-status.ok { background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.25); color: #4ade80; }
     .signup-status.err { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.25); color: #f87171; }
 
+    .signup-success { display: none; text-align: center; padding: 8px 0 4px; }
+    .signup-success.show { display: block; animation: signupSuccessIn .4s cubic-bezier(.16,1,.3,1); }
+    @keyframes signupSuccessIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .signup-success-icon {
+      width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(74,222,128,.12); border: 1px solid rgba(74,222,128,.3); color: #4ade80;
+    }
+    .signup-success-icon svg { width: 30px; height: 30px; }
+    .signup-success .signup-title { text-align: center; }
+    .signup-success .signup-sub { text-align: center; }
+
     /* ── MOBILE GLOBAL ── */
     @media (max-width: 768px) {
       .section { padding: 64px 0; }
@@ -1504,31 +1516,42 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
 
-      <span class="signup-badge">
+      <span class="signup-badge" id="signupBadge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         Teste grátis · 7 dias
       </span>
 
-      <h3 class="signup-title" id="title-signup">Vamos começar?</h3>
-      <p class="signup-sub">Preencha seus dados e um de nossos consultores entra em contato para ativar seu acesso.</p>
+      <div id="signupFormView">
+        <h3 class="signup-title" id="title-signup">Vamos começar?</h3>
+        <p class="signup-sub">Preencha seus dados e um de nossos consultores entra em contato para ativar seu acesso.</p>
 
-      <form id="signupForm">
-        <div class="signup-field">
-          <label for="signup-nome">Nome</label>
-          <input type="text" id="signup-nome" name="nome" placeholder="Seu nome completo" required autocomplete="name">
+        <form id="signupForm">
+          <div class="signup-field">
+            <label for="signup-nome">Nome</label>
+            <input type="text" id="signup-nome" name="nome" placeholder="Seu nome completo" required autocomplete="name">
+          </div>
+          <div class="signup-field">
+            <label for="signup-telefone">Telefone</label>
+            <input type="tel" id="signup-telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel">
+          </div>
+          <div class="signup-field">
+            <label for="signup-email">E-mail</label>
+            <input type="email" id="signup-email" name="email" placeholder="voce@empresa.com.br" required autocomplete="email">
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg signup-submit">Quero criar minha conta grátis</button>
+          <div class="signup-status" id="signupStatus" role="status" aria-live="polite"></div>
+        </form>
+        <p class="signup-note">Sem cartão de crédito. Cancele quando quiser.</p>
+      </div>
+
+      <div id="signupSuccessView" class="signup-success" role="status" aria-live="assertive">
+        <div class="signup-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="signup-field">
-          <label for="signup-telefone">Telefone</label>
-          <input type="tel" id="signup-telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel">
-        </div>
-        <div class="signup-field">
-          <label for="signup-email">E-mail</label>
-          <input type="email" id="signup-email" name="email" placeholder="voce@empresa.com.br" required autocomplete="email">
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg signup-submit">Quero criar minha conta grátis</button>
-        <div class="signup-status" id="signupStatus" role="status" aria-live="polite"></div>
-      </form>
-      <p class="signup-note">Sem cartão de crédito. Cancele quando quiser.</p>
+        <h3 class="signup-title">Cadastro recebido!</h3>
+        <p class="signup-sub" style="margin-bottom:28px">Em breve um de nossos consultores entra em contato pelo telefone ou e-mail que você informou para ativar seu acesso.</p>
+        <button type="button" class="btn btn-primary btn-lg signup-submit" data-close="modal-signup">Entendi</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1886,19 +1909,31 @@
   // Formulário de cadastro
   const signupForm = document.getElementById('signupForm');
   const signupStatus = document.getElementById('signupStatus');
+  const signupFormView = document.getElementById('signupFormView');
+  const signupSuccessView = document.getElementById('signupSuccessView');
+  const signupBadge = document.getElementById('signupBadge');
+
   function setSignupStatus(type, msg) {
     if (!signupStatus) return;
     signupStatus.className = 'signup-status show ' + type;
-    const icon = type === 'ok'
-      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
     signupStatus.innerHTML = icon + '<span>' + msg + '</span>';
   }
+
+  // Reseta para a tela de formulário sempre que o modal de cadastro for reaberto
+  document.querySelectorAll('[data-modal="modal-signup"]').forEach(el => {
+    el.addEventListener('click', () => {
+      if (signupFormView) signupFormView.style.display = '';
+      if (signupSuccessView) signupSuccessView.classList.remove('show');
+      if (signupBadge) signupBadge.style.display = '';
+      if (signupStatus) signupStatus.className = 'signup-status';
+    });
+  });
+
   if (signupForm) {
     signupForm.addEventListener('submit', async e => {
       e.preventDefault();
       const btn = signupForm.querySelector('.signup-submit');
-      const original = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Enviando...';
       if (signupStatus) signupStatus.className = 'signup-status';
@@ -1917,17 +1952,15 @@
         });
         if (!res.ok) throw new Error('Falha no envio');
 
-        btn.textContent = original;
+        signupForm.reset();
         btn.disabled = false;
-        setSignupStatus('ok', 'Cadastro enviado! Em breve um consultor entra em contato.');
-        setTimeout(() => {
-          closeModal('modal-signup');
-          signupForm.reset();
-          signupStatus.className = 'signup-status';
-        }, 3000);
+        btn.textContent = 'Quero criar minha conta grátis';
+        if (signupFormView) signupFormView.style.display = 'none';
+        if (signupBadge) signupBadge.style.display = 'none';
+        if (signupSuccessView) signupSuccessView.classList.add('show');
       } catch (err) {
-        btn.textContent = original;
         btn.disabled = false;
+        btn.textContent = 'Quero criar minha conta grátis';
         setSignupStatus('err', 'Não conseguimos enviar seu cadastro agora. Tente novamente em instantes.');
       }
     });
