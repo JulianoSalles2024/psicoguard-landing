@@ -677,9 +677,18 @@
     .signup-field input:focus { outline: none; border-color: var(--sky); background: rgba(255,255,255,.06); }
     .signup-submit {
       width: 100%; margin-top: 8px; border: none; cursor: pointer;
-      font-family: var(--fb); font-size: 15px;
+      font-family: var(--fb); font-size: 15px; white-space: normal;
     }
     .signup-note { margin-top: 14px; font-size: 11.5px; color: var(--txt-3); text-align: center; }
+    .signup-status {
+      display: none; align-items: center; gap: 8px;
+      margin-top: 14px; padding: 11px 14px; border-radius: 10px;
+      font-size: 13px; font-weight: 500; line-height: 1.4;
+    }
+    .signup-status.show { display: flex; }
+    .signup-status svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .signup-status.ok { background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.25); color: #4ade80; }
+    .signup-status.err { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.25); color: #f87171; }
 
     /* ── MOBILE GLOBAL ── */
     @media (max-width: 768px) {
@@ -1517,6 +1526,7 @@
           <input type="email" id="signup-email" name="email" placeholder="voce@empresa.com.br" required autocomplete="email">
         </div>
         <button type="submit" class="btn btn-primary btn-lg signup-submit">Quero criar minha conta grátis</button>
+        <div class="signup-status" id="signupStatus" role="status" aria-live="polite"></div>
       </form>
       <p class="signup-note">Sem cartão de crédito. Cancele quando quiser.</p>
     </div>
@@ -1875,6 +1885,15 @@
 
   // Formulário de cadastro
   const signupForm = document.getElementById('signupForm');
+  const signupStatus = document.getElementById('signupStatus');
+  function setSignupStatus(type, msg) {
+    if (!signupStatus) return;
+    signupStatus.className = 'signup-status show ' + type;
+    const icon = type === 'ok'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    signupStatus.innerHTML = icon + '<span>' + msg + '</span>';
+  }
   if (signupForm) {
     signupForm.addEventListener('submit', async e => {
       e.preventDefault();
@@ -1882,6 +1901,7 @@
       const original = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Enviando...';
+      if (signupStatus) signupStatus.className = 'signup-status';
 
       const payload = {
         nome: signupForm.nome.value.trim(),
@@ -1897,19 +1917,18 @@
         });
         if (!res.ok) throw new Error('Falha no envio');
 
-        btn.textContent = 'Enviado! Em breve entramos em contato.';
+        btn.textContent = original;
+        btn.disabled = false;
+        setSignupStatus('ok', 'Cadastro enviado! Em breve um consultor entra em contato.');
         setTimeout(() => {
           closeModal('modal-signup');
           signupForm.reset();
-          btn.textContent = original;
-          btn.disabled = false;
-        }, 2200);
+          signupStatus.className = 'signup-status';
+        }, 3000);
       } catch (err) {
-        btn.textContent = 'Erro ao enviar. Tente novamente.';
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.disabled = false;
-        }, 2500);
+        btn.textContent = original;
+        btn.disabled = false;
+        setSignupStatus('err', 'Não conseguimos enviar seu cadastro agora. Tente novamente em instantes.');
       }
     });
   }
